@@ -1,0 +1,25 @@
+# Bat Configuration - Kunal Kumar
+# Theme
+--theme="OneHalfDark"
+
+# Enable this to use italic text on the terminal. This is not supported on all
+# terminal emulators (like tmux, by default):
+--italic-text=always
+
+# Show line numbers, Git Modifications and File headers
+--style="numbers,changes,header,grid"
+
+# Tabs
+--tabs=4
+
+# Wrap
+--wrap=auto
+
+# Colors
+--color=always
+
+# Decorations
+--decorations=always
+
+# Paging
+--paging=auto

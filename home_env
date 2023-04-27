@@ -1,0 +1,9 @@
+# Environment Variables - Kunal Kumar
+# Define $PATH.                                                                                     
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Language Environment
+export LANG=en_US.UTF-8
+
+# Terminal Editor
+export EDITOR=/usr/bin/vim

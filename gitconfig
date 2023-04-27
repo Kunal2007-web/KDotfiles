@@ -1,0 +1,153 @@
+# Git Configuration - Kunal Kumar
+# User
+[user]
+	name = "Your Name"
+	email = "Your Email" 
+	useConfigOnly = false
+	signingkey = "Your GPG Signing Key"
+
+[github]
+	user = "Your Github Username"
+
+# Core
+[core]
+	abbrev = 5
+	autocrlf = "input"
+	editor = "vim"
+	pager = "less"
+
+# Add
+[add "interactive"]
+	useBuiltin = true
+
+# Blame
+[blame]
+	coloring = "highlightRecent"
+	date = "short-local"
+	showEmail = true
+
+# Branch
+[branch]
+	autosetupmerge = true
+
+# Clean
+[clean]
+	requireForce = true
+
+# Commit
+[commit]
+	template = "~/.gitmessage"
+	status = true
+	gpgsign = true
+
+# Tags
+[tag]
+	gpgsign = true
+	minTrustLevel = "marginal"
+
+# GPG
+[gpg]
+	format = "openpgp"
+
+# Checkout
+[checkout]
+	defaultRemote = "origin"
+
+# Diff
+[diff]
+	algorithm = "default"
+	autorefreshindex = true
+	colorMoved = "plain"
+	colorMovedWS = "allow-indentation-change"
+	mnemonicprefix = true
+	tool = vimdiff
+
+# Help
+[help]
+	autocorrect = true
+
+# Init
+[init]
+	defaultBranch = "main"
+
+# Log
+[log]
+	abbrevCommit = true
+	date = "short-local"
+	decorate = "short"
+	showroot = true
+	abbrevCommit = true
+	graphColors = "blue, green, red, yellow, magenta"
+
+# Merge
+[merge]
+	log = true
+	tool = vimdiff
+
+# Push
+[push]
+	autoSetupRemote = true
+
+# Rebase
+[rebase]
+	instructionFormat = "fuller"
+
+# Status
+[status]
+	relativePaths = true
+	showStash = true
+	submodulesummary = true
+
+# Web
+[web]
+	browser = "xdg-open"
+
+# Color Settings
+[color]
+	ui = "always"
+[color "branch"]
+	current = "green"
+	local = "brightgreen"
+	plain = "bold white"
+	remote = "blue"
+	upstream = "brightblue"
+[color "decorate"]
+	branch = "bold blue"
+	HEAD = "bold green"
+	remoteBranch = "cyan"
+	stash = "red"
+	tag = "yellow"
+[color "interactive"]
+	error = "bold red"
+	prompt = "green"
+	help = "blue"
+	header = "cyan"
+[color "remote"]
+	error = "bold red"
+	warning = "bold yellow"
+	success = "brightgreen"
+	hint = "blue"
+[color "status"]
+	added = "green"
+	branch = "brightblue"
+	changed = "yellow"
+	header = "white"
+	nobranch = "red"
+	remoteBranch = "cyan"
+	localBranch = "bold green"
+	unmerged = "brightred"
+	untracked = "bold red"
+	updated = "bold yellow"
+
+# Credentials Github.com
+[credential "https://github.com"]
+	helper = "!/usr/bin/gh auth git-credential"
+[credential "https://gist.github.com"]
+	helper = "!/usr/bin/gh auth git-credential"
+
+# Filter
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	smudge = "git-lfs smudge -- %f"
+	process = "git-lfs filter-process"
+	required = true

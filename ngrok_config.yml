@@ -1,0 +1,45 @@
+# Ngrok Configuration - Kunal Kumar
+# Auth Token and Version
+version: "2"
+authtoken: "Enter Authtoken from Ngrok Site"
+
+# Connection Timeout
+connect_timeout: 25s
+
+# Console UI
+console_ui: true
+console_ui_color: transparent
+
+# Heartbeat
+heartbeat_interval: 15s
+heartbeat_tolerance: 20s
+
+# Log
+log_level: info
+log_format: term
+log: off
+
+# Tunnels
+remote_management: true
+update_channel: stable
+update_check: true
+web_addr: 127.0.0.1:4000
+tunnels:
+  testing:
+    proto: http
+    addr: 5000
+    basic_auth: 
+      - "username:password"
+    inspect: true
+    schemes: 
+      - https
+    host_header: "Testing Tunnel"
+  demo:
+    proto: http
+    addr: 8000
+    basic_auth:
+      - "username:password"
+    inspect: true
+    schemes:
+      - https
+    host_header: "Demonstration Tunnel"

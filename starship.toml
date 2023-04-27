@@ -1,0 +1,236 @@
+# Starship Config - Kunal Kumar
+# Prompt Settings
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$git_commit\
+$package\
+$nodejs\
+$python\
+$conda\
+$golang\
+$kotlin\
+$dart\
+$ruby\
+$container\ 
+$fill\
+$cmd_duration\
+$line_break\
+$character\
+"""
+
+right_format = """
+$line_break\
+$status\
+$jobs\
+$battery
+"""
+
+scan_timeout = 20
+command_timeout = 10000
+add_newline = true
+
+# Prompt Fill
+[fill]
+symbol = ' '
+disabled = false
+
+# Username & Hostname
+[hostname]
+format = '@[$hostname$ssh_symbol](blue)'
+ssh_only = false
+ssh_symbol = '👨‍💻'
+trim_at = '.'
+disabled = false
+
+[username]
+style_user = 'green'
+style_root = 'bold red'
+format = '[$user]($style)'
+show_always = true
+disabled = false
+
+# Directory
+[directory]
+format = ' [$path](purple)[$read_only](bright red)'
+read_only = '🔐'
+truncation_length = 1
+truncate_to_repo = true
+truncation_symbol = '../'
+home_symbol = '🏠'
+use_os_path_sep = true
+disabled = false
+
+# Git
+[git_branch]
+format = ' \[[$symbol $branch:$remote_branch](bold blue)'
+symbol = '🌳'
+always_show_remote = true
+disabled = false
+
+[git_commit]
+format = ' [$hash$tag](166)\]'
+commit_hash_length = 4
+only_detached = false
+tag_disabled = false
+tag_symbol = '🔖'
+disabled = false
+
+[git_state]
+disabled = true
+
+[git_status]
+format = ' Files: [$all_status$ahead_behind](bold yellow)'
+conflicted = '='
+ahead = ' ⭡${count}'
+behind = '⭣${count}'
+diverged = '⭥${count}'
+up_to_date = ''
+untracked = '?${count}'
+stashed = '🗃️${count}'
+modified = '📑${count}'
+staged = '+${count}'
+renamed = '📝${count}'
+deleted = '-${count}'
+disabled = false
+
+# Containers
+[container]
+symbol = '⬢'
+format = '\[[$symbol $name](bold yellow dimmed)\]'
+disabled = false
+
+[package]
+symbol = '📦'
+format = '\[[$symbol $version](73)\]'
+version_format = 'v${raw}'
+disabled = false
+
+# Programming Languages
+[nodejs]
+symbol = ''
+format = '\[[$symbol $version](34)\]'
+version_format = 'v${raw}'
+detect_extensions = ['js', 'ts', 'mjs', 'mts', 'cjs', 'cts']
+detect_files = []
+detect_folders = ['node_modules']
+not_capable_style = 'bold red'
+disabled = false
+
+[python]
+symbol = ''
+format = '\[[$symbol $version\($virtualenv $pyenv_prefix\)](yellow bold)\]'
+version_format = 'v${raw}'
+pyenv_prefix = 'pyenv'
+python_binary = ['python', 'python2', 'python3']
+detect_extensions = ['py']
+detect_files = ['.python_version', 'Pipfile', '__init__.py', 'pyproject.toml', 'setup.py', 'tox.ini']
+detect_folders = []
+disabled = false
+
+[conda]
+symbol = '🐍'
+format = '\[[$symbol $environment](bright green)\]'
+truncation_length = 2
+ignore_base = true
+disabled = false
+
+[golang]
+symbol = '🐹'
+format = '\[[$symbol $version](cyan)\]'
+version_format = 'v${raw}'
+detect_extensions = ['go']
+detect_files = ['go.mod', 'go.sum', 'go.work', 'glide.yaml', 'Gopkg.yml', 'Gopkg.lock', '.go-version']
+detect_folders = ['Godeps']
+disabled = false
+
+[kotlin]
+symbol = ''
+format = '\[[$symbol $version](126)\]'
+version_format = 'v${raw}'
+detect_extensions = ['kt', 'kts']
+detect_files = []
+detect_folders = []
+kotlin_binary = 'kotlin'
+disabled = false
+
+[dart]
+symbol = ''
+format = '\[[$symbol $version](26)\]'
+version_format = 'v${raw}'
+detect_extensions = ['dart']
+detect_files = ['pubspec.yaml', 'pubspec.yml', 'pubspec.lock']
+detect_folders = ['.dart_tool']
+disabled = false
+
+[ruby]
+symbol = '💎'
+format = '\[[$symbol $version](bright-red)\]'
+version_format = 'v${raw}'
+detect_extensions = ['rb']
+detect_files = ['Gemfile', '.ruby-version']
+detect_folders = []
+detect_variables = ['RUBY_VERSION', 'RBENV_VERSION']
+disabled = false
+
+# Prompt & Right Prompt
+[cmd_duration]
+format = '⏰ [$duration](bold 35)'
+min_time = 3_000
+show_milliseconds = false
+show_notifications = false
+disabled = false
+
+[line_break]
+disabled = false
+
+[character]
+format = '$symbol '
+success_symbol = '[](green)'
+error_symbol = '[](red)'
+disabled = false
+
+[status]
+format = '[$symbol](bold red)'
+symbol = '❌'
+success_symbol = ''
+not_executable_symbol = '🚫'
+not_found_symbol = '🔍'
+sigint_symbol = '🚧'
+signal_symbol = '⚡'
+recognize_signal_code = true
+map_symbol = true
+pipestatus = true
+pipestatus_separator = '|'
+disabled = false
+
+[jobs]
+format = ' [$symbol$number](bold blue)'
+symbol = '⚒'
+symbol_threshold = 1
+number_threshold = 2
+disabled = false
+
+[battery]
+format = ' [$symbol $percentage]($style)'
+full_symbol = '🔋'
+charging_symbol = '⚡'
+discharging_symbol = '⌛'
+empty_symbol = '🔌'
+disabled = false
+
+[[battery.display]]
+threshold = 100
+style = 'bold green'
+
+[[battery.display]]
+threshold = 50
+style = 'bold yellow'
+
+[[battery.display]]
+threshold = 30
+style = 'bold red'
+discharging_symbol = '⌛'

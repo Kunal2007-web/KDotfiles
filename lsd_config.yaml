@@ -1,0 +1,54 @@
+# LSD Configuration - Kunal Kumar
+# Blocks
+blocks:
+  - size
+  - name
+
+# Color
+color:
+  when: always
+  theme: default
+
+# Date
+date: date
+
+# Dereference
+dereference: false
+
+# Display
+display: all
+
+# Icons
+icons: 
+  when: always
+  theme: fancy
+  separator: " "
+
+# Indicators
+indicators: true
+
+# Layout
+layout: tree
+
+# Recursion
+recursion:
+  enabled: false
+  depth: 1
+
+# Size
+size: default
+
+# Sorting
+sorting:
+  column: name
+  dir-grouping: last
+  reverse: false
+
+# No Symlink
+no-symlink: false
+
+# Total Size
+total-size: false
+
+# Symlink Arrow
+symlink-arrow: 壟

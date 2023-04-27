@@ -1,0 +1,26 @@
+# Shell Functions - Kunal Kumar
+
+# Shows `onefetch` output when cd in a git repo
+function chpwd() {
+    if [[ -d ./.git ]]
+    then
+        onefetch
+    fi
+}
+
+# Creates my directory structure after the initialization of a git repository
+function ginit() {
+    git init
+    echo "Creating Template Directory Structure..."
+    mkdir docs
+    touch LICENSE README.md docs/CONTRIBUTING.md
+    cd docs || exit
+    wget -O CODE_OF_CONDUCT.md https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md
+    cd ..
+    cp ~/.gitmessage ./
+    git config --local commit.template ".gitmessage"
+    echo "Choose .gitignore Template:"
+    gitignore
+    echo "For LICENSE goto https://choosealicense.com"
+    echo "All done!"
+}

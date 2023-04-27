@@ -1,0 +1,21 @@
+# Shell Aliases - Kunal Kumar
+# Package Management
+alias install="sudo dnf install"
+alias remove="sudo dnf remove"
+
+# Rename Aliases
+alias ls="lsd"
+alias cat="bat"
+alias nettest="speedtest-cli"
+
+# Live Server Aliases
+alias testingtunnel="live-server --port=5000 && ngrok start testing"
+alias demotunnel="live-server --port=8000 && ngrok start demo"
+alias fontreload="fc-cache -f -v"
+
+# Git Aliases
+alias gc="git commit"
+alias gcm="git commit -m"
+alias ga="git add ."
+alias gaf="git add"
+

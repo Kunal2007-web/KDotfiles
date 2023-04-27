@@ -1,0 +1,26 @@
+# NPM Configuration - Kunal Kumar
+# Auth Token
+_authToken="Enter Authtoken Here using `npm login`"
+
+# Configuration
+auth-type="web"
+bin-links=true
+browser=true
+cache=/home/kunal/.npm
+color="always"
+description=true
+editor="vim"
+fetch-retries=5
+format-package-lock=true
+git="git"
+global=false
+heading="Node Package Manager Logs: Kunal Kumar"
+init-author-name="Kunal Kumar"
+init-author-email="kunalkumarchourasiya2021@gmail.com"
+init-license="MIT"
+init-version="1.0.0"
+install-links=true
+loglevel="notice"
+pack-destination="."
+unicode=true
+userconfig="/home/kunal/.npmrc"

@@ -1,0 +1,50 @@
+# Topgrade Configuration - Kunal Kumar
+# Disable specific steps - same options as the command line flag
+disable = ["vim", "emacs", "node"]
+
+# Do not display preamble
+display_preamble = false
+
+# Do not ask to retry failed steps (default: false)
+no_retry = false
+
+# Run `sudo -v` to cache credentials at the start of the run; this avoids a
+# blocking password prompt in the middle of a possibly-unattended run.
+pre_sudo = true
+
+# Sudo command to be used
+sudo_command = "sudo"
+
+# set the terminal title
+set_title = true
+
+# Display the time in step titles
+display_time = true
+
+# Cleanup temporary or old files
+cleanup = true
+
+# Skip sending a notification at the end of a run
+skip_notify = false
+
+[git]
+max_concurrency = 5
+# Additional git repositories to pull
+repos = []
+
+# Commands to run before anything
+[pre_commands]
+"Title" = "figlet -c Topgrade"
+
+[npm]
+# Use sudo if the NPM directory isn't owned by the current user
+use_sudo = true
+
+[firmware]
+# Offer to update firmware; if false just check for and display available updates
+upgrade = true
+
+[flatpak]
+# Use sudo for updating the system-wide installation
+use_sudo = true
+
