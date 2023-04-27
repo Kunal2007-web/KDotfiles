@@ -51,7 +51,7 @@ install_git_files() {
             mv ~/"$i" ~/"$i".bak
         fi
     done
-    echo "Done..."
+    echo "Done..." 1>>"$(tty)"
 
     # Syncs git files
     rsync -zvh "$kdot_dir"/gitconfig ~/.gitconfig
@@ -98,7 +98,7 @@ install_git_files() {
     [nN]* ) 
     git config --global --unset diff.tool
     git config --global --unset merge.tool ;;
-    esac
+    esac 1>>"$(tty)"
 
 } &>>kdotfiles.log
 
