@@ -4,7 +4,6 @@
 	name = "Your Name"
 	email = "Your Email" 
 	useConfigOnly = false
-	signingkey = "Your GPG Signing Key"
 
 [github]
 	user = "Your Github Username"
@@ -38,11 +37,11 @@
 [commit]
 	template = "~/.gitmessage"
 	status = true
-	gpgsign = true
+	gpgsign = false
 
 # Tags
 [tag]
-	gpgsign = true
+	gpgsign = false
 	minTrustLevel = "marginal"
 
 # GPG

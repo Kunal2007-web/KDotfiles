@@ -64,7 +64,7 @@ install_git_files() {
     read -rp "Enter your email for .gitconfig: " email
     read -rp "Enter your github username for .gitconfig: " username
     read -rp "Enter a valid editor command for git (default:vim): " editor
-    read -rp "Do you want to use GPG signing in git commits and tags? [y/N]: " gpg_choice
+    read -rp "Do you want to use GPG signing in git commits and tags? [y/n]: " gpg_choice
     read -rp "Do you want to use a difftool and mergetool? [y/n]: " tool_choice
     } 1>>"$(tty)"
 
@@ -72,7 +72,7 @@ install_git_files() {
     git config --global user.name "$fullname"
     git config --global user.email "$email"
     git config --global github.user "$username"
-    if [ $editor -eq "" || $editor -eq " "]; then
+    if [ "$editor" -eq "" ] || [ "$editor" -eq " " ]; then
         git config --global core.editor "vim"
     else
         git config --global core.editor "$editor"
@@ -82,14 +82,14 @@ install_git_files() {
     # Diff and Merge Tool
     case $tool_choice in
     [yY]* ) 
-    read -rp "Enter a diff and merge tool (default: vimdiff): "  tool
-    if [ $tool -eq "" || $tool -eq " " ]; then
+    read -rp "Enter a diff and merge tool (default: vimdiff): "  tool 1>>"$(tty)"
+    if [ "$tool" -eq "" ] || [ "$tool" -eq " " ]; then
         git config --global diff.tool "vimdiff"
         git config --gloabl difftool.vimdiff.cmd "vimdiff $LOCAL $REMOTE"
         git config --gloabl merge.tool "vimdiff"
         git config --global mergetool.vimdiff.cmd "vimdiff $MERGED $LOCAL $REMOTE"
     else
-        read -rp "Enter the valid command for the diff and merge tool: " tool_cmd
+        read -rp "Enter the valid command for the diff and merge tool: " tool_cmd 1>>"$(tty)"
         git config --global diff.tool "$tool"
         git config --global difftool."$tool".cmd "$tool_cmd $LOCAL $REMOTE"
         git config --global merge.tool "$tool"
@@ -98,7 +98,26 @@ install_git_files() {
     [nN]* ) 
     git config --global --unset diff.tool
     git config --global --unset merge.tool ;;
-    esac 1>>"$(tty)"
+    * )
+    echo "Keeping defaults" 1>>"$(tty)"
+    esac
+
+    # GPG
+    case $gpg_choice in
+    [yY]* )
+    read -rp "Enter your gpg signing key for commits and tags: " gpg_key 1>>"$(tty)"
+    git config --global user.signingkey "$gpg_key"
+    git config --global commit.gpgsign true
+    git config --global tag.gpgsign true ;;
+    [nN]* )
+    git config --global --unset user.signingkey
+    git config --global --unset commit.gpgsign
+    git config --global --unset tag.gpgsign
+    git config --global --unset tag.minTrustLevel
+    git config --global --unset gpg.format ;;
+    * )
+    echo "Keeping Defaults" ;;
+    esac
 
 } &>>kdotfiles.log
 
