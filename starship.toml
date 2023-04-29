@@ -8,6 +8,10 @@ $git_branch\
 $git_status\
 $git_commit\
 $package\
+$container\ 
+$fill\
+$cmd_duration\
+$line_break\
 $nodejs\
 $python\
 $conda\
@@ -15,9 +19,6 @@ $golang\
 $kotlin\
 $dart\
 $ruby\
-$container\ 
-$fill\
-$cmd_duration\
 $line_break\
 $character\
 """
@@ -72,8 +73,8 @@ always_show_remote = true
 disabled = false
 
 [git_commit]
-format = ' [$hash$tag](166)\]'
-commit_hash_length = 4
+format = ' [#$hash$tag](166)\]'
+commit_hash_length = 6
 only_detached = false
 tag_disabled = false
 tag_symbol = '🔖'
@@ -83,18 +84,18 @@ disabled = false
 disabled = true
 
 [git_status]
-format = ' Files: [$all_status$ahead_behind](bold yellow)'
+format = ' Files:[$all_status$ahead_behind](bold yellow)'
 conflicted = '='
-ahead = ' ⭡${count}'
-behind = '⭣${count}'
-diverged = '⭥${count}'
+ahead = '⭡${count}'
+behind = ' ⭣${count}'
+diverged = ' ⭥${count}'
 up_to_date = ''
-untracked = '?${count}'
-stashed = '🗃️${count}'
-modified = '📑${count}'
-staged = '+${count}'
-renamed = '📝${count}'
-deleted = '-${count}'
+untracked = ' ?${count}'
+stashed = ' 🗃️${count}'
+modified = ' 📑${count}'
+staged = ' +${count}'
+renamed = ' 📝${count}'
+deleted = ' -${count}'
 disabled = false
 
 # Containers
@@ -139,7 +140,7 @@ ignore_base = true
 disabled = false
 
 [golang]
-symbol = '🐹'
+symbol = 'ﳑ'
 format = '\[[$symbol $version](cyan)\]'
 version_format = 'v${raw}'
 detect_extensions = ['go']

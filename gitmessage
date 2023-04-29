@@ -4,8 +4,8 @@
 <Emoji/Emoji Text><Commit Scope>: Subject Line [<Branch Name> #<Request Number>]
 
 # Commit and Changes
-Describe the Problem/Feature, in 72 Characters or less
-If there is a problem, also describe the solution.
+Describe the Problem/Feature, in 72 Characters or 
+less. If there is a problem, also describe the solution.
 
 Changes Made:
 	- In Bullet Points (<Filename>)
@@ -15,7 +15,7 @@ Files Changed:
 	Add Status of Files: From Below
 
 # Metadata
-[Issue/Feature Request]: \#Issue Number
+[Issue/Feature Request]: #Issue Number
 Date: dd/mm/yyyy, hh:mm A.M/P.M. <Timezone>
 
 All Done. 

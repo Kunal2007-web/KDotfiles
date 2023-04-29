@@ -47,11 +47,11 @@ set confirm " Display confirmation dialog when closing an unsaved file
 set history=100 " Set command history limit
 
 " Plugins
-" For Automatic Plugin Installation
+" For Automatic Plugin Installation on First Start
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+  autocmd VimEnter * PlugInstall --sync | source '~/.vimrc'
 endif
 
 " Load Plugins
@@ -60,8 +60,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'dense-analysis/ale'
 	Plug 'Raimondi/delimitMate'
 	Plug 'preservim/nerdtree'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'PhilRunninger/nerdtree-visual-selection'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'PhilRunninger/nerdtree-visual-selection'
 	Plug 'godlygeek/tabular'
 	Plug 'preservim/vim-markdown'
 	Plug 'preservim/vim-litecorrect'
@@ -73,17 +73,16 @@ call plug#begin('~/.vim/plugged')
 	if has('nvim') || has('patch-8.0.902')
  		Plug 'mhinz/vim-signify'
 	else
-  		Plug 'mhinz/vim-signify', { 'tag': 'legacy' }
+  	Plug 'mhinz/vim-signify', { 'tag': 'legacy' }
 	endif
 	Plug 'farmergreg/vim-lastplace'
 	Plug 'sheerun/vim-polyglot'
-    Plug 'ryanoasis/vim-devicons'
+  Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
 " Vim Functions and vimscript
 " Custom Keymaps
-" For Clearing Search
 nmap <C-h> :let @/ = ""<CR>
 
 " Startify Bookmars
@@ -121,6 +120,11 @@ let g:startify_custom_header =
 let g:airline_theme = 'ayu_mirage'
 let g:airline_powerline_fonts = 1
 
+" Vim Keymaps
+nnoremap <C-i> :PlugInstall<CR>
+nnoremap <C-u> :PlugUpdate<CR>
+nnoremap <C-r> :PlugClean<CR>
+
 " NerdTree Keymaps
 nnoremap <C-e> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
@@ -141,10 +145,6 @@ let g:NERDTreeWinPos = "Left"
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
