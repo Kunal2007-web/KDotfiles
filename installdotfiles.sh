@@ -8,50 +8,50 @@ kdot_dir=$(pwd)
 install_zshrc() {
     # Backs up old .zshrc
     if [ -f ~/.zshrc ]; then
-        echo "Backing up current .zshrc..." 1>>"$(tty)"
+        echo "Backing up current .zshrc..." 1>&3
         rm ~/.zshrc.bak
         mv ~/.zshrc ~/.zshrc.bak
-        echo "Done..." 1>>"$(tty)"
+        echo "Done..." 1>&3
     fi
-    echo "Syncing new .zshrc..." 1>>"$(tty)"
+    echo "Syncing new .zshrc..." 1>&3
     rsync -zvh "$kdot_dir"/zshrc ~/.zshrc # Syncs new .zshrc
-    echo "Done." 1>>"$(tty)"
+    echo "Done." 1>&3
 } &>>kdotfiles.log # Logs Output
 
 # Installs scripts and dotfiles for zsh
 install_zsh_scripts() {
     # Backs up old zsh scripts
     file_lst=(".aliases.zsh" ".functions.zsh" ".env" ".completions")
-    echo "Creating Backups of Old zsh scripts..." 1>>"$(tty)"
+    echo "Creating Backups of Old zsh scripts..." 1>&3
     for i in "${file_lst[@]}"; do
         if [ -e "$i" ]; then
             rm ~/"$i".bak
             mv ~/"$i" ~/"$i".bak 
         fi
     done
-    echo "Done..." 1>>"$(tty)"
+    echo "Done..." 1>&3
 
     # Syncs zsh scripts
-    echo "Syncing New zsh scripts..." 1>>"$(tty)"
+    echo "Syncing New zsh scripts..." 1>&3
     rsync -zvh "$kdot_dir"/aliases ~/.aliases.zsh
     rsync -zvh "$kdot_dir"/functions ~/.functions.zsh
     rsync -zvh "$kdot_dir"/home_env ~/.env
     rsync -azvh "$kdot_dir"/.completions ~/
-    echo "Done." 1>>"$(tty)"
+    echo "Done." 1>&3
 } &>>kdotfiles.log
 
 # Installs git dotfiles
 install_git_files() {
     # Backs up git files
     file_lst=(".gitconfig" ".gitmessage")
-    echo "Creating Backups of git files..." 1>>"$(tty)"
+    echo "Creating Backups of git files..." 1>&3
     for i in "${file_lst[@]}"; do 
         if [ -f "$i" ]; then
             rm ~/"$i".bak
             mv ~/"$i" ~/"$i".bak
         fi
     done
-    echo "Done..." 1>>"$(tty)"
+    echo "Done..." 1>&3
 
     # Syncs git files
     rsync -zvh "$kdot_dir"/gitconfig ~/.gitconfig
@@ -66,13 +66,13 @@ install_git_files() {
     read -rp "Enter a valid editor command for git (default:vim): " editor
     read -rp "Do you want to use GPG signing in git commits and tags? [y/n]: " gpg_choice
     read -rp "Do you want to use a difftool and mergetool? [y/n]: " tool_choice
-    } 1>>"$(tty)"
+    } 1>&3
 
     # Configuring Details
     git config --global user.name "$fullname"
     git config --global user.email "$email"
     git config --global github.user "$username"
-    if [ "$editor" -eq "" ] || [ "$editor" -eq " " ]; then
+    if [ -z "$editor" ]; then
         git config --global core.editor "vim"
     else
         git config --global core.editor "$editor"
@@ -82,14 +82,14 @@ install_git_files() {
     # Diff and Merge Tool
     case $tool_choice in
     [yY]* ) 
-    read -rp "Enter a diff and merge tool (default: vimdiff): "  tool 1>>"$(tty)"
-    if [ "$tool" -eq "" ] || [ "$tool" -eq " " ]; then
+    read -rp "Enter a diff and merge tool (default: vimdiff): "  tool 1>&3
+    if [ -z "$tool" ]; then
         git config --global diff.tool "vimdiff"
         git config --gloabl difftool.vimdiff.cmd "vimdiff $LOCAL $REMOTE"
         git config --gloabl merge.tool "vimdiff"
         git config --global mergetool.vimdiff.cmd "vimdiff $MERGED $LOCAL $REMOTE"
     else
-        read -rp "Enter the valid command for the diff and merge tool: " tool_cmd 1>>"$(tty)"
+        read -rp "Enter the valid command for the diff and merge tool: " tool_cmd 1>&3
         git config --global diff.tool "$tool"
         git config --global difftool."$tool".cmd "$tool_cmd $LOCAL $REMOTE"
         git config --global merge.tool "$tool"
@@ -99,13 +99,13 @@ install_git_files() {
     git config --global --unset diff.tool
     git config --global --unset merge.tool ;;
     * )
-    echo "Keeping defaults" 1>>"$(tty)"
+    echo "Keeping defaults" 1>&3 ;;
     esac
 
     # GPG
     case $gpg_choice in
     [yY]* )
-    read -rp "Enter your gpg signing key for commits and tags: " gpg_key 1>>"$(tty)"
+    read -rp "Enter your gpg signing key for commits and tags: " gpg_key 1>&3
     git config --global user.signingkey "$gpg_key"
     git config --global commit.gpgsign true
     git config --global tag.gpgsign true ;;
@@ -116,8 +116,29 @@ install_git_files() {
     git config --global --unset tag.minTrustLevel
     git config --global --unset gpg.format ;;
     * )
-    echo "Keeping Defaults" ;;
+    echo "Keeping Defaults" 1>&3 ;;
     esac
+
+} &>>kdotfiles.log
+
+install_vim_config() {
+    # Backs up git files
+    file_lst=(".vimrc" ".vim")
+    echo "Creating Backups of vim files and folders..." 1>&3
+    for i in "${file_lst[@]}"; do 
+        if [ -e "$i" ]; then
+            rm ~/"$i".bak
+            mv ~/"$i" ~/"$i".bak
+        fi
+    done
+    echo "Done..." 1>&3
+
+    # Sets up new vim folder and syncs vimrc
+    echo "Setting up vimrc and vim folder..." 1>&3
+    mkdir -p ~/.vim ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
+    rsync -avh "$kdot_dir"/vimrc ~/.vimrc
+    echo "Plugins will be installed on first startup," 1>&3
+    echo "Done." 1>&3
 
 } &>>kdotfiles.log
 
