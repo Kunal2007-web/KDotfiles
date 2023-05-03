@@ -6,7 +6,7 @@ kdot_dir=$(pwd)
 # Functions
 # Installs .zshrc file after backing up old file.
 install_zshrc() {
-    # Backs up old .zshrc
+    # Backs up .zshrc
     if [ -f ~/.zshrc ]; then
         echo "Backing up current .zshrc..." 1>&3
         rm ~/.zshrc.bak
@@ -20,7 +20,7 @@ install_zshrc() {
 
 # Installs scripts and dotfiles for zsh
 install_zsh_scripts() {
-    # Backs up old zsh scripts
+    # Backs up zsh scripts
     file_lst=(".aliases.zsh" ".functions.zsh" ".env" ".completions")
     echo "Creating Backups of Old zsh scripts..." 1>&3
     for i in "${file_lst[@]}"; do
@@ -122,7 +122,7 @@ install_git_files() {
 } &>>kdotfiles.log
 
 install_vim_config() {
-    # Backs up git files
+    # Backs up vim files
     file_lst=(".vimrc" ".vim")
     echo "Creating Backups of vim files and folders..." 1>&3
     for i in "${file_lst[@]}"; do 
@@ -140,6 +140,39 @@ install_vim_config() {
     echo "Plugins will be installed on first startup," 1>&3
     echo "Done." 1>&3
 
+} &>>kdotfiles.log
+
+install_bin_dir() {
+    # Backs up bin directory
+    echo "Backing up Bin Directory..." 1>&3
+    if [ -d ~/bin ]; then
+        rm ~/bin.bak
+        mv ~/bin ~/bin.bak
+    fi
+    echo "Done." 1>&3
+
+    # Sync new bin directory
+    echo "Syncing new Bin Directory..." 1>&3
+    rsync -azvh "$kdot_dir"/bin ~/
+    echo "Done." 1>&3
+    echo "Tip: To keep the external scripts up to date periodically pull their repositories and rsync them." 1>&3
+} &>>kdotfiles.log
+
+install_npmrc() {
+    # Backs up old npmrc
+    echo "Backing up npmrc..." 1>&3
+    if [ -f ~/.npmrc ]; then
+        rm ~/.npmrc.bak
+        mv ~/.npmrc ~/.npmrc.bak
+    fi
+    echo "Done." 1>&3
+
+    # Syncs npmrc
+    { echo "Setting up npmrc..."
+    rsync -zvh "$kdot_dir"/npmrc ~/.npmrc
+    echo "Logging in..."
+    npm login # Logs in with npm for authtoken
+    echo "Done." } 1>&3
 } &>>kdotfiles.log
 
 # Execution
