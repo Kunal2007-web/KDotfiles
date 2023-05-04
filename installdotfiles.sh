@@ -2,6 +2,7 @@
 
 # Variables
 kdot_dir=$(pwd)
+backup_dir=~/.dotfiles_backups
 
 # Functions
 # Installs .zshrc file after backing up old file.
@@ -9,8 +10,7 @@ install_zshrc() {
     # Backs up .zshrc
     if [ -f ~/.zshrc ]; then
         echo "Backing up current .zshrc..." 1>&3
-        rm ~/.zshrc.bak
-        mv ~/.zshrc ~/.zshrc.bak
+        mv ~/.zshrc ~/"$backup_dir"/.zshrc.bak
         echo "Done..." 1>&3
     fi
     echo "Syncing new .zshrc..." 1>&3
@@ -25,8 +25,7 @@ install_zsh_scripts() {
     echo "Creating Backups of Old zsh scripts..." 1>&3
     for i in "${file_lst[@]}"; do
         if [ -e "$i" ]; then
-            rm ~/"$i".bak
-            mv ~/"$i" ~/"$i".bak 
+            mv ~/"$i" ~/"$backup_dir"/"$i".bak 
         fi
     done
     echo "Done..." 1>&3
@@ -47,8 +46,7 @@ install_git_files() {
     echo "Creating Backups of git files..." 1>&3
     for i in "${file_lst[@]}"; do 
         if [ -f "$i" ]; then
-            rm ~/"$i".bak
-            mv ~/"$i" ~/"$i".bak
+            mv ~/"$i" ~/"$backup_dir"/"$i".bak
         fi
     done
     echo "Done..." 1>&3
@@ -127,8 +125,7 @@ install_vim_config() {
     echo "Creating Backups of vim files and folders..." 1>&3
     for i in "${file_lst[@]}"; do 
         if [ -e "$i" ]; then
-            rm ~/"$i".bak
-            mv ~/"$i" ~/"$i".bak
+            mv ~/"$i" ~/"$backup_dir"/"$i".bak
         fi
     done
     echo "Done..." 1>&3
@@ -146,8 +143,7 @@ install_bin_dir() {
     # Backs up bin directory
     echo "Backing up Bin Directory..." 1>&3
     if [ -d ~/bin ]; then
-        rm ~/bin.bak
-        mv ~/bin ~/bin.bak
+        mv ~/bin ~/"$backup_dir"/bin.bak
     fi
     echo "Done." 1>&3
 
@@ -162,8 +158,7 @@ install_npmrc() {
     # Backs up old npmrc
     echo "Backing up npmrc..." 1>&3
     if [ -f ~/.npmrc ]; then
-        rm ~/.npmrc.bak
-        mv ~/.npmrc ~/.npmrc.bak
+        mv ~/.npmrc ~/"$backup_dir"/.npmrc.bak
     fi
     echo "Done." 1>&3
 
@@ -173,6 +168,25 @@ install_npmrc() {
     echo "Logging in..."
     npm login # Logs in with npm for authtoken
     echo "Done." } 1>&3
+} &>>kdotfiles.log
+
+install_gnupg() {
+    # Backups old gpg configuration files
+    echo "Backing up old gpg configuration files..." 1>&3
+    file_lst=("dirmngr.conf" "gpg-agent.conf" "gpg.conf")
+    for i in "${file_lst[@]}"; do
+        if [ -f ~/.gnupg/"$i" ]; then
+            mv ~/.gnupg/"$i" "$backup_dir"/"$i".bak
+        fi
+    done
+    echo "Done." 1>&3
+
+    # Syncs gnupg configuration files
+    echo "Syncing gnupg configuration files..." 1>&3
+    rsync -zvh "$kdot_dir"/.gnupg/dirmngr.conf ~/.gnupg/dirmngr.conf
+    rsync -zvh "$kdot_dir"/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+    rsync -zvh "$kdot_dir"/.gnupg/gpg.conf ~/.gnupg/gpg.conf
+    echo "Done." 1>&3
 } &>>kdotfiles.log
 
 # Execution
