@@ -2,7 +2,7 @@
 
 # Variables
 kdot_dir=$(pwd)
-backup_dir=~/.dotfiles_backups
+backup_dir=.dotfiles_backups
 
 # Functions
 # Installs .zshrc file after backing up old file.
@@ -154,29 +154,13 @@ install_bin_dir() {
     echo "Tip: To keep the external scripts up to date periodically pull their repositories and rsync them." 1>&3
 } &>>kdotfiles.log
 
-install_npmrc() {
-    # Backs up old npmrc
-    echo "Backing up npmrc..." 1>&3
-    if [ -f ~/.npmrc ]; then
-        mv ~/.npmrc ~/"$backup_dir"/.npmrc.bak
-    fi
-    echo "Done." 1>&3
-
-    # Syncs npmrc
-    { echo "Setting up npmrc..."
-    rsync -zvh "$kdot_dir"/npmrc ~/.npmrc
-    echo "Logging in..."
-    npm login # Logs in with npm for authtoken
-    echo "Done." } 1>&3
-} &>>kdotfiles.log
-
 install_gnupg() {
     # Backups old gpg configuration files
     echo "Backing up old gpg configuration files..." 1>&3
     file_lst=("dirmngr.conf" "gpg-agent.conf" "gpg.conf")
     for i in "${file_lst[@]}"; do
         if [ -f ~/.gnupg/"$i" ]; then
-            mv ~/.gnupg/"$i" "$backup_dir"/"$i".bak
+            mv ~/.gnupg/"$i" ~/"$backup_dir"/"$i".bak
         fi
     done
     echo "Done." 1>&3
@@ -187,6 +171,137 @@ install_gnupg() {
     rsync -zvh "$kdot_dir"/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
     rsync -zvh "$kdot_dir"/.gnupg/gpg.conf ~/.gnupg/gpg.conf
     echo "Done." 1>&3
+} &>>kdotfiles.log
+
+
+install_utility_configs() {
+    # Backs up and Syncs npmrc file, if npm exists
+    if [ "$(command -v npm)" ]; then
+        echo "Backing up npmrc..." 1>&3
+        if [ -f ~/.npmrc ]; then
+            mv ~/.npmrc ~/"$backup_dir"/.npmrc.bak
+        fi
+        echo "Done." 1>&3
+
+        # Syncs npmrc
+        { echo "Setting up npmrc..."
+        rsync -zvh "$kdot_dir"/npmrc ~/.npmrc
+        echo "Logging in..."
+        npm login # Logs in with npm for authtoken
+        echo "Done." 
+        } 1>&3
+    else
+        echo "NodeJS and npm not installed, skipping." 1>&3
+    fi
+
+    # Backs up and syncs amfora configs, if it exists
+    if [ "$(command -v amfora)" ]; then
+        if [ -d ~/.config/amfora ]; then
+            echo "Backing up amfora config directory..." 1>&3
+            mv ~/.config/amfora ~/"$backup_dir"
+            echo "Done." 1>&3
+        fi
+
+        echo "Syncing amfora config folder..." 1>&3
+        rsync -azvh "$kdot_dir"/amfora ~/.config/
+        echo "Done." 1>&3
+    else
+        echo "Amfora not installed, skipping." 1>&3
+    fi
+    
+    # Backs up and Syncs bat config, if it exists
+    if [ "$(command -v bat)" ]; then
+        if [ -f ~/.config/bat/config ]; then
+            echo "Backing up bat config file..." 1>&3
+            mv ~/.config/bat/config ~/"$backup_dir"/bat_config
+            echo "Done." 1>&3
+        fi
+
+        echo "Syncing bat config file..." 1>&3
+        rsync -zvh "$kdot_dir"/bat_config ~/.config/bat/config
+        echo "Done." 1>&3
+    else
+        echo "Bat not installed, skipping." 1>&3
+    fi
+
+    # Backs up and Syncs Lazygit config file
+    if [ "$(command -v lazygit)" ]; then
+        if [ -f ~/.config/lazygit/config.yml ]; then
+            echo "Backing up lazygit config file..." 1>&3
+            mv ~/.config/lazygit/config.yml ~/"$backup_dir"/lazygit_config.yml
+            echo "Done." 1>&3
+        fi
+
+        echo "Syncing lazygit config file..." 1>&3
+        rsync -zvh "$kdot_dir"/lazygit_config.yml ~/.config/lazygit/config.yml
+        echo "Done." 1>&3
+    else
+        echo "Lazygit not installed, skipping." 1>&3
+    fi
+    
+    # Backs us and Syncs LSD config file
+    if [ "$(command -v lsd)" ]; then
+        if [ -f ~/.config/lsd/config.yaml ]; then
+            echo "Backing up lsd config file..." 1>&3
+            mv ~/.config/lsd/config.yaml ~/"$backup_dir"/lsd_config.yaml
+            echo "Done." 1>&3
+        fi
+
+        echo "Syncing lsd config file..." 1>&3
+        rsync -zvh "$kdot_dir"/lsd_config.yaml ~/.config/lsd/config.yaml
+        echo "Done." 1>&3
+    else
+        echo "lsd not installed, skipping." 1>&3
+    fi
+
+    # Backs up and Syncs Ngrok config file
+    if [ "$(command -v ngrok)" ]; then
+        if [ -f ~/.config/ngrok/ngrok.yml ]; then
+            echo "Backing up ngrok config file..." 1>&3
+            mv ~/.config/ngrok/ngrok.yml ~/"$backup_dir"/ngrok_config.yml
+            echo "Done." 1>&3
+        fi
+
+        echo "Syncing ngrok config file..." 1>&3
+        rsync -zvh "$kdot_dir"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
+        read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken 1>&3
+        echo "Logging in..." 1>&3
+        ngrok config add-authtoken "$ngrok_authtoken"
+        echo "Done." 1>&3
+    else
+        echo "Ngrok not installed, skipping." 1>&3
+    fi
+
+    # Backs up and Syncs Starship config file
+    if [ "$(command -v starship)" ]; then
+        if [ -f ~/.config/starship.toml ]; then
+            echo "Backing up starship config file..." 1>&3
+            mv ~/.config/starship.toml ~/"$backup_dir"/
+            echo "Done." 1>&3
+        fi
+
+        echo "Syncing starship config file..." 1>&3
+        rsync -zvh "$kdot_dir"/starship.toml ~/.config/starship.tool
+        echo "Done." 1>&3
+    else
+        echo "Starship not installed, skipping" 1>&3
+    fi
+
+    # Backs up and syncs topgrade config file
+    if [ "$(command -v topgrade)" ]; then
+        if [ -f ~/.config/topgrade.toml ]; then
+            echo "Backing up topgrade config file..." 1>&3
+            mv ~/.config/topgrade.toml ~/"$backup_dir"/topgrade.toml
+            echo "Done." 1>&3
+        fi
+
+        echo "Syncing topgrade config file..." 1>&3
+        rsync -zvh "$kdot_dir"/topgrade.toml ~/.config/topgrade.tool
+        echo "Done." 1>&3
+    else
+        echo "Topgrade not installed, skipping" 1>&3
+    fi
+
 } &>>kdotfiles.log
 
 # Execution
