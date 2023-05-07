@@ -7,14 +7,27 @@ backup_dir=.dotfiles_backups
 # Functions
 # Installs .zshrc file after backing up old file.
 install_zshrc() {
+    # Checks if oh-my-zsh is installed
+    if ! [ "$(command -v omz)" ]; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 1>&3
+    fi
+
     # Backs up .zshrc
     if [ -f ~/.zshrc ]; then
         echo "Backing up current .zshrc..." 1>&3
         mv ~/.zshrc ~/"$backup_dir"/.zshrc.bak
         echo "Done..." 1>&3
     fi
+
+    # Syncs new .zshrc
     echo "Syncing new .zshrc..." 1>&3
-    rsync -zvh "$kdot_dir"/zshrc ~/.zshrc # Syncs new .zshrc
+    rsync -zvh "$kdot_dir"/zshrc ~/.zshrc
+    echo "Installing zsh extensions..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+    cd terminal-utilities || exit
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
+    cd ~ || exit
     echo "Done." 1>&3
 } &>>kdotfiles.log # Logs Output
 
@@ -133,7 +146,7 @@ install_vim_config() {
     # Sets up new vim folder and syncs vimrc
     echo "Setting up vimrc and vim folder..." 1>&3
     mkdir -p ~/.vim ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
-    rsync -avh "$kdot_dir"/vimrc ~/.vimrc
+    rsync -zvh "$kdot_dir"/vimrc ~/.vimrc
     echo "Plugins will be installed on first startup," 1>&3
     echo "Done." 1>&3
 
@@ -143,13 +156,13 @@ install_bin_dir() {
     # Backs up bin directory
     echo "Backing up Bin Directory..." 1>&3
     if [ -d ~/bin ]; then
-        mv ~/bin ~/"$backup_dir"/bin.bak
+        cp -r ~/bin ~/"$backup_dir"/bin.bak
     fi
     echo "Done." 1>&3
 
     # Sync new bin directory
     echo "Syncing new Bin Directory..." 1>&3
-    rsync -azvh "$kdot_dir"/bin ~/
+    rsync -azvhu "$kdot_dir"/bin ~/
     echo "Done." 1>&3
     echo "Tip: To keep the external scripts up to date periodically pull their repositories and rsync them." 1>&3
 } &>>kdotfiles.log
@@ -173,7 +186,7 @@ install_gnupg() {
     echo "Done." 1>&3
 } &>>kdotfiles.log
 
-
+# Installs config files for different terminal utilities 
 install_utility_configs() {
     # Backs up and Syncs npmrc file, if npm exists
     if [ "$(command -v npm)" ]; then
