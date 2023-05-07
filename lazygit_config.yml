@@ -1,5 +1,5 @@
 gui:
-  windowSize: 'full'
+  windowSize: 'normal'
   sidePanelWidth: 0.30
   expandFocusedSidePanel: true
   language: 'en'

@@ -22,5 +22,3 @@ It also has dotfiles for:
 - Environment Variables
 - Git Commit Message Template
 - Completion Scripts
-
-

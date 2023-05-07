@@ -280,6 +280,7 @@ install_utility_configs() {
         read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken 1>&3
         echo "Logging in..." 1>&3
         ngrok config add-authtoken "$ngrok_authtoken"
+        echo "Tip: Change the username and password for predefined tunnels in the config file, in ~/.config/ngrok/ngrok.yml ." 1>&3
         echo "Done." 1>&3
     else
         echo "Ngrok not installed, skipping." 1>&3

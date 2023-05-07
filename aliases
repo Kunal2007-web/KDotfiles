@@ -1,8 +1,4 @@
 # Shell Aliases - Kunal Kumar
-# Package Management
-alias install="sudo dnf install"
-alias remove="sudo dnf remove"
-
 # Rename Aliases
 alias ls="lsd"
 alias cat="bat"
