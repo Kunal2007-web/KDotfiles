@@ -9,14 +9,18 @@ backup_dir=.dotfiles_backups
 install_zshrc() {
     # Checks if oh-my-zsh is installed
     if ! [ "$(command -v omz)" ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 1>&3
+        {
+        echo "Installing Oh My Zsh..."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        echo "Done."
+        } 1>&3
     fi
 
     # Backs up .zshrc
     if [ -f ~/.zshrc ]; then
         echo "Backing up current .zshrc..." 1>&3
         mv ~/.zshrc ~/"$backup_dir"/.zshrc.bak
-        echo "Done..." 1>&3
+        echo "Done." 1>&3
     fi
 
     # Syncs new .zshrc
@@ -38,10 +42,10 @@ install_zsh_scripts() {
     echo "Creating Backups of Old zsh scripts..." 1>&3
     for i in "${file_lst[@]}"; do
         if [ -e "$i" ]; then
-            mv ~/"$i" ~/"$backup_dir"/"$i".bak 
+            mv ~/"$i" ~/"$backup_dir"/"$i".bak
         fi
     done
-    echo "Done..." 1>&3
+    echo "Done." 1>&3
 
     # Syncs zsh scripts
     echo "Syncing New zsh scripts..." 1>&3
@@ -57,12 +61,12 @@ install_git_files() {
     # Backs up git files
     file_lst=(".gitconfig" ".gitmessage")
     echo "Creating Backups of git files..." 1>&3
-    for i in "${file_lst[@]}"; do 
+    for i in "${file_lst[@]}"; do
         if [ -f "$i" ]; then
             mv ~/"$i" ~/"$backup_dir"/"$i".bak
         fi
     done
-    echo "Done..." 1>&3
+    echo "Done." 1>&3
 
     # Syncs git files
     rsync -zvh "$kdot_dir"/gitconfig ~/.gitconfig
@@ -70,13 +74,14 @@ install_git_files() {
 
     # Sets up personal configuraions
     # Reading Details
-    { echo "Setting Up Personal Configurations in git files..."
-    read -rp "Enter your full name for .gitconfig: " fullname
-    read -rp "Enter your email for .gitconfig: " email
-    read -rp "Enter your github username for .gitconfig: " username
-    read -rp "Enter a valid editor command for git (default:vim): " editor
-    read -rp "Do you want to use GPG signing in git commits and tags? [y/n]: " gpg_choice
-    read -rp "Do you want to use a difftool and mergetool? [y/n]: " tool_choice
+    {
+        echo "Setting Up Personal Configurations in git files..."
+        read -rp "Enter your full name for .gitconfig: " fullname
+        read -rp "Enter your email for .gitconfig: " email
+        read -rp "Enter your github username for .gitconfig: " username
+        read -rp "Enter a valid editor command for git (default:vim): " editor
+        read -rp "Do you want to use GPG signing in git commits and tags? [y/n]: " gpg_choice
+        read -rp "Do you want to use a difftool and mergetool? [y/n]: " tool_choice
     } 1>&3
 
     # Configuring Details
@@ -92,42 +97,48 @@ install_git_files() {
     # Setting up GPG Signing and Diff and Merge Tool
     # Diff and Merge Tool
     case $tool_choice in
-    [yY]* ) 
-    read -rp "Enter a diff and merge tool (default: vimdiff): "  tool 1>&3
-    if [ -z "$tool" ]; then
-        git config --global diff.tool "vimdiff"
-        git config --gloabl difftool.vimdiff.cmd "vimdiff $LOCAL $REMOTE"
-        git config --gloabl merge.tool "vimdiff"
-        git config --global mergetool.vimdiff.cmd "vimdiff $MERGED $LOCAL $REMOTE"
-    else
-        read -rp "Enter the valid command for the diff and merge tool: " tool_cmd 1>&3
-        git config --global diff.tool "$tool"
-        git config --global difftool."$tool".cmd "$tool_cmd $LOCAL $REMOTE"
-        git config --global merge.tool "$tool"
-        git config --global mergetool."$tool".cmd "$tool_cmd $MERGED $LOCAL $REMOTE"
-    fi ;;
-    [nN]* ) 
-    git config --global --unset diff.tool
-    git config --global --unset merge.tool ;;
-    * )
-    echo "Keeping defaults" 1>&3 ;;
+    [yY]*)
+        read -rp "Enter a diff and merge tool (default: vimdiff): " tool 1>&3
+        if [ -z "$tool" ]; then
+            git config --global diff.tool "vimdiff"
+            git config --global difftool.vimdiff.cmd "vimdiff $LOCAL $REMOTE"
+            git config --global merge.tool "vimdiff"
+            git config --global mergetool.vimdiff.cmd "vimdiff $MERGED $LOCAL $REMOTE"
+        else
+            read -rp "Enter the valid command for the diff and merge tool: " tool_cmd 1>&3
+            git config --global diff.tool "$tool"
+            git config --global difftool."$tool".cmd "$tool_cmd $LOCAL $REMOTE"
+            git config --global merge.tool "$tool"
+            git config --global mergetool."$tool".cmd "$tool_cmd $MERGED $LOCAL $REMOTE"
+        fi
+        ;;
+    [nN]*)
+        git config --global --unset diff.tool
+        git config --global --unset merge.tool
+        ;;
+    *)
+        echo "Keeping defaults" 1>&3
+        ;;
     esac
 
     # GPG
     case $gpg_choice in
-    [yY]* )
-    read -rp "Enter your gpg signing key for commits and tags: " gpg_key 1>&3
-    git config --global user.signingkey "$gpg_key"
-    git config --global commit.gpgsign true
-    git config --global tag.gpgsign true ;;
-    [nN]* )
-    git config --global --unset user.signingkey
-    git config --global --unset commit.gpgsign
-    git config --global --unset tag.gpgsign
-    git config --global --unset tag.minTrustLevel
-    git config --global --unset gpg.format ;;
-    * )
-    echo "Keeping Defaults" 1>&3 ;;
+    [yY]*)
+        read -rp "Enter your gpg signing key for commits and tags: " gpg_key 1>&3
+        git config --global user.signingkey "$gpg_key"
+        git config --global commit.gpgsign true
+        git config --global tag.gpgsign true
+        ;;
+    [nN]*)
+        git config --global --unset user.signingkey
+        git config --global --unset commit.gpgsign
+        git config --global --unset tag.gpgsign
+        git config --global --unset tag.minTrustLevel
+        git config --global --unset gpg.format
+        ;;
+    *)
+        echo "Keeping Defaults" 1>&3
+        ;;
     esac
 
 } &>>kdotfiles.log
@@ -136,7 +147,7 @@ install_vim_config() {
     # Backs up vim files
     file_lst=(".vimrc" ".vim")
     echo "Creating Backups of vim files and folders..." 1>&3
-    for i in "${file_lst[@]}"; do 
+    for i in "${file_lst[@]}"; do
         if [ -e "$i" ]; then
             mv ~/"$i" ~/"$backup_dir"/"$i".bak
         fi
@@ -186,7 +197,7 @@ install_gnupg() {
     echo "Done." 1>&3
 } &>>kdotfiles.log
 
-# Installs config files for different terminal utilities 
+# Installs config files for different terminal utilities
 install_utility_configs() {
     # Backs up and Syncs npmrc file, if npm exists
     if [ "$(command -v npm)" ]; then
@@ -197,11 +208,12 @@ install_utility_configs() {
         echo "Done." 1>&3
 
         # Syncs npmrc
-        { echo "Setting up npmrc..."
-        rsync -zvh "$kdot_dir"/npmrc ~/.npmrc
-        echo "Logging in..."
-        npm login # Logs in with npm for authtoken
-        echo "Done." 
+        {
+            echo "Setting up npmrc..."
+            rsync -zvh "$kdot_dir"/npmrc ~/.npmrc
+            echo "Logging in..."
+            npm login # Logs in with npm for authtoken
+            echo "Done."
         } 1>&3
     else
         echo "NodeJS and npm not installed, skipping." 1>&3
@@ -221,7 +233,7 @@ install_utility_configs() {
     else
         echo "Amfora not installed, skipping." 1>&3
     fi
-    
+
     # Backs up and Syncs bat config, if it exists
     if [ "$(command -v bat)" ]; then
         if [ -f ~/.config/bat/config ]; then
@@ -251,7 +263,7 @@ install_utility_configs() {
     else
         echo "Lazygit not installed, skipping." 1>&3
     fi
-    
+
     # Backs us and Syncs LSD config file
     if [ "$(command -v lsd)" ]; then
         if [ -f ~/.config/lsd/config.yaml ]; then

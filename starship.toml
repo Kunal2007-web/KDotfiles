@@ -61,7 +61,7 @@ read_only = '🔐'
 truncation_length = 1
 truncate_to_repo = true
 truncation_symbol = '../'
-home_symbol = '🏠'
+home_symbol = '🏠 '
 use_os_path_sep = true
 disabled = false
 
