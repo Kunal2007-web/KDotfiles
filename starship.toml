@@ -36,7 +36,7 @@ add_newline = true
 
 # Prompt Fill
 [fill]
-symbol = '-'
+symbol = ' -'
 disabled = false
 
 # Username & Hostname
@@ -61,7 +61,7 @@ read_only = '🔐'
 truncation_length = 1
 truncate_to_repo = true
 truncation_symbol = '../'
-home_symbol = '🏠 '
+home_symbol = '🏠'
 use_os_path_sep = true
 disabled = false
 
@@ -179,7 +179,7 @@ disabled = false
 
 # Prompt & Right Prompt
 [cmd_duration]
-format = '⏰ [$duration](bold 35)'
+format = ' ⏰ [$duration](bold 35)'
 min_time = 3_000
 show_milliseconds = false
 show_notifications = false

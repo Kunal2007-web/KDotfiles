@@ -307,7 +307,7 @@ install_utility_configs() {
         fi
 
         echo "Syncing starship config file..." 1>&3
-        rsync -zvh "$kdot_dir"/starship.toml ~/.config/starship.tool
+        rsync -zvh "$kdot_dir"/starship.toml ~/.config/starship.toml
         echo "Done." 1>&3
     else
         echo "Starship not installed, skipping" 1>&3
@@ -322,7 +322,7 @@ install_utility_configs() {
         fi
 
         echo "Syncing topgrade config file..." 1>&3
-        rsync -zvh "$kdot_dir"/topgrade.toml ~/.config/topgrade.tool
+        rsync -zvh "$kdot_dir"/topgrade.toml ~/.config/topgrade.toml
         echo "Done." 1>&3
     else
         echo "Topgrade not installed, skipping" 1>&3
@@ -330,4 +330,33 @@ install_utility_configs() {
 
 } &>>kdotfiles.log
 
+# Checks if the requirements of the scripts are installed
+check_requirements() {
+    requirements_list=("zsh" "git" "curl" "rsync")
+    for i in "${requirements_list[@]}"; do
+        if ! [ "$(command -v "$i")" ]; then
+            echo "$i not installed. Install the program and then run the script."
+            exit 1
+        fi
+    done    
+}
+
 # Execution
+echo "Hello, Welcome to the KDotfiles Installation Script"
+echo "Preparing to install the dotfiles..."
+cd ~ || exit
+echo "Checking Requirements..."
+check_requirements
+echo "All required commands are installed."
+echo "Proceeding..."
+install_zshrc
+install_zsh_scripts
+install_git_files
+install_vim_config
+install_bin_dir
+install_gnupg
+install_utility_configs
+echo "All Done. Thank You."
+echo "If there were any mistakes or errors, if you want to ask some questions,"
+echo "or you want to make a feature request, visit: https://github.com/Kunal2007-web/KDotfiles/issues"
+echo "If you would like to contribute to the project, see docs/CONTRIBUTING.md file."
