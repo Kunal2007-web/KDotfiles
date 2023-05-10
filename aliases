@@ -1,7 +1,15 @@
 # Shell Aliases - Kunal Kumar
 # Rename Aliases
-alias ls="lsd"
-alias cat="bat"
+if [ "$(command -v lsd)" ]; then
+    alias ls="lsd"
+else
+    alias ls="ls -lah"
+fi
+
+if [ "$(command -v bat)" ]; then
+    alias cat="bat"
+fi
+
 alias nettest="speedtest-cli"
 
 # Live Server Aliases

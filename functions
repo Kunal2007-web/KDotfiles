@@ -1,10 +1,11 @@
 # Shell Functions - Kunal Kumar
-
-# Shows `onefetch` output when cd in a git repo
+# Shows `onefetch` output when cd in a git repo, if onefetch is installed.
 function chpwd() {
     if [[ -d ./.git ]]
     then
-        onefetch
+        if [ "$(command -v onefetch)" ]; then
+            onefetch
+        fi
     fi
 }
 
@@ -19,8 +20,10 @@ function ginit() {
     cd ..
     cp ~/.gitmessage ./
     git config --local commit.template ".gitmessage"
-    echo "Choose .gitignore Template:"
-    gitignore
+    if [ "$(command -v gitignore)" ]; then
+        echo "Choose .gitignore Template:"
+        gitignore
+    fi
     echo "For LICENSE goto https://choosealicense.com"
     echo "All done!"
 }
