@@ -223,7 +223,7 @@ install_utility_configs() {
     if [ "$(command -v amfora)" ]; then
         if [ -d ~/.config/amfora ]; then
             echo "Backing up amfora config directory..." 1>&3
-            mv ~/.config/amfora ~/"$backup_dir"
+            mv ~/.config/amfora ~/"$backup_dir"/amfora.bak
             echo "Done." 1>&3
         fi
 
@@ -238,7 +238,7 @@ install_utility_configs() {
     if [ "$(command -v bat)" ]; then
         if [ -f ~/.config/bat/config ]; then
             echo "Backing up bat config file..." 1>&3
-            mv ~/.config/bat/config ~/"$backup_dir"/bat_config
+            mv ~/.config/bat/config ~/"$backup_dir"/bat_config.bak
             echo "Done." 1>&3
         fi
 
@@ -253,7 +253,7 @@ install_utility_configs() {
     if [ "$(command -v lazygit)" ]; then
         if [ -f ~/.config/lazygit/config.yml ]; then
             echo "Backing up lazygit config file..." 1>&3
-            mv ~/.config/lazygit/config.yml ~/"$backup_dir"/lazygit_config.yml
+            mv ~/.config/lazygit/config.yml ~/"$backup_dir"/lazygit_config.yml.bak
             echo "Done." 1>&3
         fi
 
@@ -268,7 +268,7 @@ install_utility_configs() {
     if [ "$(command -v lsd)" ]; then
         if [ -f ~/.config/lsd/config.yaml ]; then
             echo "Backing up lsd config file..." 1>&3
-            mv ~/.config/lsd/config.yaml ~/"$backup_dir"/lsd_config.yaml
+            mv ~/.config/lsd/config.yaml ~/"$backup_dir"/lsd_config.yaml.bak
             echo "Done." 1>&3
         fi
 
@@ -283,7 +283,7 @@ install_utility_configs() {
     if [ "$(command -v ngrok)" ]; then
         if [ -f ~/.config/ngrok/ngrok.yml ]; then
             echo "Backing up ngrok config file..." 1>&3
-            mv ~/.config/ngrok/ngrok.yml ~/"$backup_dir"/ngrok_config.yml
+            mv ~/.config/ngrok/ngrok.yml ~/"$backup_dir"/ngrok_config.yml.bak
             echo "Done." 1>&3
         fi
 
@@ -302,7 +302,7 @@ install_utility_configs() {
     if [ "$(command -v starship)" ]; then
         if [ -f ~/.config/starship.toml ]; then
             echo "Backing up starship config file..." 1>&3
-            mv ~/.config/starship.toml ~/"$backup_dir"/
+            mv ~/.config/starship.toml ~/"$backup_dir"/starship.toml.bak
             echo "Done." 1>&3
         fi
 
@@ -317,7 +317,7 @@ install_utility_configs() {
     if [ "$(command -v topgrade)" ]; then
         if [ -f ~/.config/topgrade.toml ]; then
             echo "Backing up topgrade config file..." 1>&3
-            mv ~/.config/topgrade.toml ~/"$backup_dir"/topgrade.toml
+            mv ~/.config/topgrade.toml ~/"$backup_dir"/topgrade.toml.bak
             echo "Done." 1>&3
         fi
 
