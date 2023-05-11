@@ -349,6 +349,7 @@ echo "Checking Requirements..."
 check_requirements
 echo "All required commands are installed."
 echo "Proceeding..."
+mkdir "$backup_dir"
 install_zshrc
 install_zsh_scripts
 install_git_files
