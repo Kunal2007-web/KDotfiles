@@ -1,6 +1,6 @@
 # NPM Configuration - Kunal Kumar
 # Auth Token
-_authToken="Enter Authtoken Here using `npm login`"
+//registry.npmjs.org/:_authToken="Enter Authtoken Here using `npm login`"
 
 # Configuration
 auth-type="web"

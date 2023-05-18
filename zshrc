@@ -20,7 +20,6 @@ source ~/.completions/npm.zsh
 source ~/.completions/ngrok.zsh
 source ~/.completions/typioca.zsh
 source ~/.completions/netlify.zsh
-source ~/.completions/starship.zsh
 
 # Plugins and Additional Scripts
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
@@ -39,10 +38,10 @@ if [ "$(command -v starship)" ]; then
     eval "$(starship init zsh)"
 fi
 
-if [ "$(command -v )" ]; then
+if [ "$(command -v please)" ]; then
     please
 fi
 
-if [ "$(command -v )" ]; then
+if [ "$(command -v pfetch)" ]; then
     pfetch
 fi

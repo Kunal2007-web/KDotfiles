@@ -112,7 +112,7 @@ disabled = false
 
 # Programming Languages
 [nodejs]
-symbol = ''
+symbol = '󰎙'
 format = '\[[$symbol $version](34)\]'
 version_format = 'v${raw}'
 detect_extensions = ['js', 'ts', 'mjs', 'mts', 'cjs', 'cts']
