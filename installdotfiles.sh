@@ -20,7 +20,7 @@ install_zshrc() {
     echo "Installing zsh extensions..."
     git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-    cd terminal-utilities || exit
+    cd ~/terminal-utilities || exit
     git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
     cd ~ || exit
     echo "Done."
@@ -227,64 +227,96 @@ install_utility_configs() {
 
     # Backs up and Syncs bat config, if it exists
     if [ "$(command -v bat)" ]; then
-        if [ -f ~/.config/bat/config ]; then
-            echo "Backing up bat config file..."
-            mv ~/.config/bat/config ~/"$backup_dir"/bat_config.bak
+        if [ -d ~/.config/bat ]; then
+            if [ -f ~/.config/bat/config ]; then
+                echo "Backing up bat config file..."
+                mv ~/.config/bat/config ~/"$backup_dir"/bat_config.bak
+                echo "Done."
+            fi
+
+            echo "Syncing bat config file..."
+            rsync -zvh "$kdot_dir"/bat_config ~/.config/bat/config
+            echo "Done."
+        else
+            mkdir ~/.config/bat
+            echo "Syncing bat config file..."
+            rsync -zvh "$kdot_dir"/bat_config ~/.config/bat/config
             echo "Done."
         fi
-
-        echo "Syncing bat config file..."
-        rsync -zvh "$kdot_dir"/bat_config ~/.config/bat/config
-        echo "Done."
     else
         echo "Bat not installed, skipping."
     fi
 
     # Backs up and Syncs Lazygit config file
     if [ "$(command -v lazygit)" ]; then
-        if [ -f ~/.config/lazygit/config.yml ]; then
-            echo "Backing up lazygit config file..."
-            mv ~/.config/lazygit/config.yml ~/"$backup_dir"/lazygit_config.yml.bak
+        if [ -d ~/.config/lazygit ]; then
+            if [ -f ~/.config/lazygit/config.yml ]; then
+                echo "Backing up lazygit config file..."
+                mv ~/.config/lazygit/config.yml ~/"$backup_dir"/lazygit_config.yml.bak
+                echo "Done."
+            fi
+
+            echo "Syncing lazygit config file..."
+            rsync -zvh "$kdot_dir"/lazygit_config.yml ~/.config/lazygit/config.yml
+            echo "Done."
+        else
+            mkdir ~/.config/lazygit
+            echo "Syncing lazygit config file..."
+            rsync -zvh "$kdot_dir"/lazygit_config.yml ~/.config/lazygit/config.yml
             echo "Done."
         fi
-
-        echo "Syncing lazygit config file..."
-        rsync -zvh "$kdot_dir"/lazygit_config.yml ~/.config/lazygit/config.yml
-        echo "Done."
     else
         echo "Lazygit not installed, skipping."
     fi
 
     # Backs us and Syncs LSD config file
     if [ "$(command -v lsd)" ]; then
-        if [ -f ~/.config/lsd/config.yaml ]; then
-            echo "Backing up lsd config file..."
-            mv ~/.config/lsd/config.yaml ~/"$backup_dir"/lsd_config.yaml.bak
+        if [ -d ~/.config/lsd ]; then
+            if [ -f ~/.config/lsd/config.yaml ]; then
+                echo "Backing up lsd config file..."
+                mv ~/.config/lsd/config.yaml ~/"$backup_dir"/lsd_config.yaml.bak
+                echo "Done."
+            fi
+
+            echo "Syncing lsd config file..."
+            rsync -zvh "$kdot_dir"/lsd_config.yaml ~/.config/lsd/config.yaml
+            echo "Done."
+        else
+            mkdir ~/.config/lsd
+            echo "Syncing lsd config file..."
+            rsync -zvh "$kdot_dir"/lsd_config.yaml ~/.config/lsd/config.yaml
             echo "Done."
         fi
-
-        echo "Syncing lsd config file..."
-        rsync -zvh "$kdot_dir"/lsd_config.yaml ~/.config/lsd/config.yaml
-        echo "Done."
     else
         echo "lsd not installed, skipping."
     fi
 
     # Backs up and Syncs Ngrok config file
     if [ "$(command -v ngrok)" ]; then
-        if [ -f ~/.config/ngrok/ngrok.yml ]; then
-            echo "Backing up ngrok config file..."
-            mv ~/.config/ngrok/ngrok.yml ~/"$backup_dir"/ngrok_config.yml.bak
+        if [ -d ~/.config/ngrok ]; then
+             if [ -f ~/.config/ngrok/ngrok.yml ]; then
+                echo "Backing up ngrok config file..."
+                mv ~/.config/ngrok/ngrok.yml ~/"$backup_dir"/ngrok_config.yml.bak
+                echo "Done."
+            fi
+
+            echo "Syncing ngrok config file..."
+            rsync -zvh "$kdot_dir"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
+            read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken
+            echo "Logging in..."
+            ngrok config add-authtoken "$ngrok_authtoken"
+            echo "Tip: Change the username and password for predefined tunnels in the config file, in ~/.config/ngrok/ngrok.yml ."
+            echo "Done."
+        else
+            mkdir ~/.config/ngrok
+            echo "Syncing ngrok config file..."
+            rsync -zvh "$kdot_dir"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
+            read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken
+            echo "Logging in..."
+            ngrok config add-authtoken "$ngrok_authtoken"
+            echo "Tip: Change the username and password for predefined tunnels in the config file, in ~/.config/ngrok/ngrok.yml ."
             echo "Done."
         fi
-
-        echo "Syncing ngrok config file..."
-        rsync -zvh "$kdot_dir"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
-        read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken
-        echo "Logging in..."
-        ngrok config add-authtoken "$ngrok_authtoken"
-        echo "Tip: Change the username and password for predefined tunnels in the config file, in ~/.config/ngrok/ngrok.yml ."
-        echo "Done."
     else
         echo "Ngrok not installed, skipping."
     fi
@@ -318,15 +350,14 @@ install_utility_configs() {
     else
         echo "Topgrade not installed, skipping"
     fi
-
 }
 
 # Checks if the requirements of the scripts are installed
 check_requirements() {
-    requirements_list=("zsh" "git" "curl" "rsync")
+    requirements_list=("zsh" "git" "curl" "rsync"  "omz")
     for i in "${requirements_list[@]}"; do
         if ! [ "$(command -v "$i")" ]; then
-            echo "$i not installed. Install the program and then run the script."
+            echo "$i not installed. Install it and then run the script."
             exit 1
         fi
     done
