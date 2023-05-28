@@ -17,12 +17,10 @@ install_zshrc() {
     # Syncs new .zshrc
     echo "Syncing new .zshrc..."
     rsync -zvh "$kdot_dir"/zshrc ~/.zshrc
-    echo "Installing zsh extensions..."
+    echo "Installing oh my zsh extensions..."
     git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-    cd ~/terminal-utilities || exit
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
-    cd ~ || exit
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ~/terminal-utilities
     echo "Done."
 }
 
@@ -188,9 +186,9 @@ install_gnupg() {
     echo "Done."
 }
 
-# Installs config files for different terminal utilities
+# Installs config files for different terminal utilities, if they are installed
 install_utility_configs() {
-    # Backs up and Syncs npmrc file, if npm exists
+    # Backs up and Syncs npmrc file
     if [ "$(command -v npm)" ]; then
         echo "Backing up npmrc..."
         if [ -f ~/.npmrc ]; then
@@ -210,7 +208,7 @@ install_utility_configs() {
         echo "NodeJS and npm not installed, skipping."
     fi
 
-    # Backs up and syncs amfora configs, if it exists
+    # Backs up and syncs amfora configs
     if [ "$(command -v amfora)" ]; then
         if [ -d ~/.config/amfora ]; then
             echo "Backing up amfora config directory..."
@@ -225,7 +223,7 @@ install_utility_configs() {
         echo "Amfora not installed, skipping."
     fi
 
-    # Backs up and Syncs bat config, if it exists
+    # Backs up and Syncs bat config
     if [ "$(command -v bat)" ]; then
         if [ -d ~/.config/bat ]; then
             if [ -f ~/.config/bat/config ]; then
@@ -366,7 +364,6 @@ check_requirements() {
 # Execution
 echo "Hello, Welcome to the KDotfiles Installation Script"
 echo "Preparing to install the dotfiles..."
-cd ~ || exit
 echo "Checking Requirements..."
 check_requirements
 echo "All required commands are installed."

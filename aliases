@@ -2,8 +2,6 @@
 # Rename Aliases
 if [ "$(command -v lsd)" ]; then
     alias ls="lsd"
-else
-    alias ls="ls -lah"
 fi
 
 if [ "$(command -v bat)" ]; then

@@ -1,0 +1,19 @@
+name: Feature Request
+description: Suggest a Feature for KDotfiles
+title: "Feature: "
+labels: ["feature", "enhancement"]
+body:
+  - type: textarea
+    attributes:
+      label: Describe the feature
+      description: Explain what the feature is and also explain why you want it in the project.
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Self Contribution?
+      description: Are you going to work on this issue yourself for contributing to the project?
+      options: 
+        - label: Yes, I will work on it myself.
+        - label: No, I won't work on it.
