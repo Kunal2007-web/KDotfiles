@@ -140,7 +140,7 @@ ignore_base = true
 disabled = false
 
 [golang]
-symbol = 'ﳑ'
+symbol = '🐹'
 format = '\[[$symbol $version](cyan)\]'
 version_format = 'v${raw}'
 detect_extensions = ['go']
@@ -210,7 +210,7 @@ disabled = false
 
 [jobs]
 format = ' [$symbol$number](bold blue)'
-symbol = '⚒'
+symbol = ''
 symbol_threshold = 1
 number_threshold = 2
 disabled = false

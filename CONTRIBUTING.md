@@ -96,4 +96,6 @@ Here are some conventions, we expect to be followed while making a code contribu
 
 * All dotfiles should have different sections for different configurations like plugins, variables, positioning, etc.
 
+* We use the SemVer Versioning System. For Ex- v1.0.0, v1.1.0, v1.0.3 .
+
 Once again, we thank you for your contribution to the project. 💖
