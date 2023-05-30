@@ -2,6 +2,7 @@
 #### KDotfiles is a project that simplifies the post-installation process of configuring dotfiles for various command-line programs.
 
 ![GitHub](https://img.shields.io/github/license/Kunal2007-web/KDotfiles?color=blue&label=License&style=for-the-badge)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Kunal2007-web/KDotfiles?color=g&display_name=tag&label=release&sort=semver&style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Kunal2007-web/KDotfiles?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Kunal2007-web/KDotfiles?style=for-the-badge)
 
@@ -38,7 +39,9 @@ This project only works for Unix-like and Unix-based systems, Ex - Linux, MacOS,
 
 ### Installation
 
-Clone the repostiory in your home directory:
+Download KDotfiles .zip or .tar.gz file from [releases](https://github.com/Kunal2007-web/KDotfiles/releases) assets.
+
+or Clone the repository in your home directory:
 
 * with HTTPS:
 
