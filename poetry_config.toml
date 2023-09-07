@@ -1,0 +1,27 @@
+# Poetry Configuration - Kunal Kumar
+# Cache Directory
+cache-dir = '$XDG_CACHE_HOME/pypoetry'
+
+# Experimental
+[experimental]
+system-git-client = true
+
+# Installer
+[installer]
+modern-installation = true
+no-binary = false
+parallel = true
+
+# Virtual Environment
+[virtualenvs]
+create = true
+in-project = true
+prefer-active-python = true
+prompt = '{project_name}--v{python_version}'
+
+[virtualenvs.options]
+always-copy = true
+no-pip = false
+no-setuptools = false
+system-site-packages = true
+

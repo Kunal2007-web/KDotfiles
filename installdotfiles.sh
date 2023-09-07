@@ -289,10 +289,32 @@ install_utility_configs() {
         echo "lsd not installed, skipping."
     fi
 
+    # Backs us and Syncs Poetry config file
+    if [ "$(command -v poetry)" ]; then
+        if [ -d ~/.config/pypoetry ]; then
+            if [ -f ~/.config/pypoetry/config.toml ]; then
+                echo "Backing up poetry config file..."
+                mv ~/.config/pypoetry/config.toml ~/"$backup_dir"/poetry_config.toml.bak
+                echo "Done."
+            fi
+
+            echo "Syncing poetry config file..."
+            rsync -zvh "$kdot_dir"/poetry_config.toml ~/.config/pypoetry/config.toml
+            echo "Done."
+        else
+            mkdir ~/.config/pypoetry
+            echo "Syncing poetry config file..."
+            rsync -zvh "$kdot_dir"/poetry_config.toml ~/.config/pypoetry/config.toml
+            echo "Done."
+        fi
+    else
+        echo "poetry not installed, skipping."
+    fi
+
     # Backs up and Syncs Ngrok config file
     if [ "$(command -v ngrok)" ]; then
         if [ -d ~/.config/ngrok ]; then
-             if [ -f ~/.config/ngrok/ngrok.yml ]; then
+            if [ -f ~/.config/ngrok/ngrok.yml ]; then
                 echo "Backing up ngrok config file..."
                 mv ~/.config/ngrok/ngrok.yml ~/"$backup_dir"/ngrok_config.yml.bak
                 echo "Done."
@@ -352,7 +374,7 @@ install_utility_configs() {
 
 # Checks if the requirements of the scripts are installed
 check_requirements() {
-    requirements_list=("zsh" "git" "curl" "rsync"  "omz")
+    requirements_list=("zsh" "git" "curl" "rsync" "omz")
     for i in "${requirements_list[@]}"; do
         if ! [ "$(command -v "$i")" ]; then
             echo "$i not installed. Install it and then run the script."
