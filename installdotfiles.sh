@@ -391,13 +391,13 @@ check_requirements
 echo "All required commands are installed."
 echo "Proceeding..."
 mkdir "$backup_dir"
-mkdir terminal-utilities
+mkdir ~/terminal-utilities
+install_gnupg
+install_git_files
 install_zshrc
 install_zsh_scripts
-install_git_files
 install_vim_config
 install_bin_dir
-install_gnupg
 install_utility_configs
 echo "All Done. Thank You."
 echo "If there were any mistakes or errors, if you want to ask some questions,"

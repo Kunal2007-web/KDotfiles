@@ -19,6 +19,7 @@ $golang\
 $kotlin\
 $dart\
 $ruby\
+$c\
 $line_break\
 $character\
 """
@@ -176,6 +177,14 @@ detect_files = ['Gemfile', '.ruby-version']
 detect_folders = []
 detect_variables = ['RUBY_VERSION', 'RBENV_VERSION']
 disabled = false
+
+[c]
+symbol = '󰙱'
+format = '\[[$symbol $name\($version\)]($style)\]'
+version_format = 'v${raw}'
+detect_extensions = ['c', 'h']
+commands = [['gcc', '--version']]
+style = 'bold 39'
 
 # Prompt & Right Prompt
 [cmd_duration]

@@ -1,9 +1,7 @@
 # Topgrade Configuration - Kunal Kumar
+[misc]
 # Disable specific steps - same options as the command line flag
 disable = ["vim", "emacs", "node"]
-
-# Do not display preamble
-display_preamble = false
 
 # Do not ask to retry failed steps (default: false)
 no_retry = false
@@ -47,4 +45,13 @@ upgrade = true
 [flatpak]
 # Use sudo for updating the system-wide installation
 use_sudo = true
+
+[brew]
+# For the BrewCask step
+# If `Repo Cask Upgrade` exists, then use the `-a` option.
+greedy_cask = true
+
+# For the BrewFormula step
+# Execute `brew autoremove` after the step.
+autoremove = true
 

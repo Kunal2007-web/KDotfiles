@@ -7,3 +7,7 @@ export LANG=en_US.UTF-8
 
 # Terminal Editor
 export EDITOR=/usr/bin/vim
+
+# Homebrew
+export HOMEBREW_NO_INSTALL_CLEANUP=False
+export HOMEBREW_NO_ENV_HINTS=False

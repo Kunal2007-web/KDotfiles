@@ -14,16 +14,24 @@ function ginit() {
     git init
     echo "Creating Template Directory Structure..."
     mkdir docs
-    touch LICENSE README.md docs/CONTRIBUTING.md
+    touch LICENSE README.md 
+    read -rp "Is the repository open-source?[y/N]: " open_repo_choice
+    case $open_repo_choice in
+    [yY]*) touch docs/CONTRIBUTING.md
     cd docs || exit
     wget -O CODE_OF_CONDUCT.md https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md
     cd ..
+    echo "For LICENSE goto https://choosealicense.com"
+    ;;
+    [nN]*) echo "Open-Source repository template not added." ;;
+    *) echo "Invalid Option!"
+    echo "Open-Source repository template not added." ;;
+    esac
     cp ~/.gitmessage ./
     git config --local commit.template ".gitmessage"
     if [ "$(command -v gitignore)" ]; then
         echo "Choose .gitignore Template:"
         gitignore
     fi
-    echo "For LICENSE goto https://choosealicense.com"
     echo "All done!"
 }

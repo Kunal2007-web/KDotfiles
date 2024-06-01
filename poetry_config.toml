@@ -1,6 +1,6 @@
 # Poetry Configuration - Kunal Kumar
 # Cache Directory
-cache-dir = '$XDG_CACHE_HOME/pypoetry'
+cache-dir = '~/.cache/pypoetry'
 
 # Experimental
 [experimental]

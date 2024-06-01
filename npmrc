@@ -3,24 +3,24 @@
 //registry.npmjs.org/:_authToken="Enter Authtoken Here using `npm login`"
 
 # Configuration
-auth-type="web"
+auth-type=web
 bin-links=true
 browser=true
 cache=~/.npm
-color="always"
+color=always
 description=true
-editor="vim"
+editor=vim
 fetch-retries=5
 format-package-lock=true
-git="git"
+git=git
 global=false
-heading="Node Package Manager Logs"
+heading=Node Package Manager Logs
 init-author-name="Your Name"
 init-author-email="Your Email"
-init-license="MIT"
-init-version="1.0.0"
+init-license=MIT
+init-version=1.0.0
 install-links=true
-loglevel="notice"
-pack-destination="."
+loglevel=notice
+pack-destination=.
 unicode=true
-userconfig="$HOME/.npmrc"
+userconfig=$HOME/.npmrc

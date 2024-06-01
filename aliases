@@ -21,3 +21,6 @@ alias gcm="git commit -m"
 alias ga="git add ."
 alias gaf="git add"
 
+# Zoxide Aliases
+alias z=__zoxide_z
+alias zi=__zoxide_zi

@@ -117,7 +117,7 @@ let g:startify_custom_header =
        \ startify#pad(split(system('figlet -w 100 Vim - Kunal'), '\n'))
 
 " Airline Settings
-let g:airline_theme = 'ayu_mirage'
+let g:airline_theme = 'onedark'
 let g:airline_powerline_fonts = 1
 
 " Vim Keymaps
@@ -134,12 +134,12 @@ nnoremap <C-f> :NERDTreeFind<CR>
 " Startify Keymaps
 nmap <C-s> :Startify<CR>
 
+" NERDTree Window Position Change.
+let g:NERDTreeWinPos = "Right"
+
 " When Vim Starts without any file arguments
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | Startify | NERDTree | wincmd p | endif
-
-" NERDTree Window Position Change.
-let g:NERDTreeWinPos = "Left"
 
 " Start NERDTree when Vim starts with a directory argument.
 autocmd StdinReadPre * let s:std_in=1
