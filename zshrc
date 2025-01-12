@@ -32,9 +32,6 @@ function __zoxide_cd() {
     \builtin cd -- "$@"
 }
 
-# Hook configuration for zoxide.
-#
-
 # Hook to add new entries to the database.
 function __zoxide_hook() {
     # shellcheck disable=SC2312
@@ -93,10 +90,6 @@ fi
 
 if [ "$(command -v netlify)" ]; then
     source ~/.completions/netlify.zsh
-fi
-
-if [ "$(command -v render)" ]; then
-    source ~/.completions/render.zsh
 fi
 
 if [ "$(command -v zoxide)" ]; then

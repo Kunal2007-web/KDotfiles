@@ -1,11 +1,12 @@
 # Shell Aliases - Kunal Kumar
 # Rename Aliases
-if [ "$(command -v lsd)" ]; then
-    alias ls="lsd"
-fi
-
 if [ "$(command -v bat)" ]; then
     alias cat="bat"
+fi
+
+if [ "$(command -v zoxide)" ]; then
+    alias cd="z"
+    alias cdi="zi"
 fi
 
 alias nettest="speedtest-cli"

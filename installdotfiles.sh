@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Variables
-kdot_dir=$(pwd)
-backup_dir=.dotfiles_backups
+KDOT_DIR=$(pwd)
+BACKUP_DIR=.dotfiles_backups
 
 # Functions
 # Installs .zshrc file after backing up old file.
@@ -10,17 +10,17 @@ install_zshrc() {
     # Backs up .zshrc
     if [ -f ~/.zshrc ]; then
         echo "Backing up current .zshrc..."
-        mv ~/.zshrc ~/"$backup_dir"/.zshrc.bak
+        mv ~/.zshrc ~/"$BACKUP_DIR"/.zshrc.bak
         echo "Done."
     fi
 
     # Syncs new .zshrc
     echo "Syncing new .zshrc..."
-    rsync -zvh "$kdot_dir"/zshrc ~/.zshrc
+    rsync -zvh "$KDOT_DIR"/zshrc ~/.zshrc
     echo "Installing oh my zsh extensions..."
-    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ~/terminal-utilities
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    git clone https://github.com/marlonrichert/zsh-autocomplete.git ~/terminal-utilities/zsh-autocomplete
     echo "Done."
 }
 
@@ -31,17 +31,17 @@ install_zsh_scripts() {
     echo "Creating Backups of Old zsh scripts..."
     for i in "${file_lst[@]}"; do
         if [ -e "$i" ]; then
-            mv ~/"$i" ~/"$backup_dir"/"$i".bak
+            mv ~/"$i" ~/"$BACKUP_DIR"/"$i".bak
         fi
     done
     echo "Done."
 
     # Syncs zsh scripts
     echo "Syncing New zsh scripts..."
-    rsync -zvh "$kdot_dir"/aliases ~/.aliases.zsh
-    rsync -zvh "$kdot_dir"/functions ~/.functions.zsh
-    rsync -zvh "$kdot_dir"/home_env ~/.env
-    rsync -azvh "$kdot_dir"/.completions ~/
+    rsync -zvh "$KDOT_DIR"/aliases ~/.aliases.zsh
+    rsync -zvh "$KDOT_DIR"/functions ~/.functions.zsh
+    rsync -zvh "$KDOT_DIR"/home_env ~/.env
+    rsync -azvh "$KDOT_DIR"/.completions ~/
     echo "Done."
 }
 
@@ -52,14 +52,14 @@ install_git_files() {
     echo "Creating Backups of git files..."
     for i in "${file_lst[@]}"; do
         if [ -f "$i" ]; then
-            mv ~/"$i" ~/"$backup_dir"/"$i".bak
+            mv ~/"$i" ~/"$BACKUP_DIR"/"$i".bak
         fi
     done
     echo "Done."
 
     # Syncs git files
-    rsync -zvh "$kdot_dir"/gitconfig ~/.gitconfig
-    rsync -zvh "$kdot_dir"/gitmessage ~/.gitmessage
+    rsync -zvh "$KDOT_DIR"/gitconfig ~/.gitconfig
+    rsync -zvh "$KDOT_DIR"/gitmessage ~/.gitmessage
 
     # Sets up personal configuraions
     # Reading Details
@@ -138,7 +138,7 @@ install_vim_config() {
     echo "Creating Backups of vim files and folders..."
     for i in "${file_lst[@]}"; do
         if [ -e "$i" ]; then
-            mv ~/"$i" ~/"$backup_dir"/"$i".bak
+            mv ~/"$i" ~/"$BACKUP_DIR"/"$i".bak
         fi
     done
     echo "Done..."
@@ -146,7 +146,7 @@ install_vim_config() {
     # Sets up new vim folder and syncs vimrc
     echo "Setting up vimrc and vim folder..."
     mkdir -p ~/.vim ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
-    rsync -zvh "$kdot_dir"/vimrc ~/.vimrc
+    rsync -zvh "$KDOT_DIR"/vimrc ~/.vimrc
     echo "Plugins will be installed on first startup,"
     echo "Done."
 
@@ -156,13 +156,13 @@ install_bin_dir() {
     # Backs up bin directory
     echo "Backing up Bin Directory..."
     if [ -d ~/bin ]; then
-        cp -r ~/bin ~/"$backup_dir"/bin.bak
+        cp -r ~/bin ~/"$BACKUP_DIR"/bin.bak
     fi
     echo "Done."
 
     # Sync new bin directory
     echo "Syncing new Bin Directory..."
-    rsync -azvhu "$kdot_dir"/bin ~/
+    rsync -azvhu "$KDOT_DIR"/bin ~/
     echo "Done."
     echo "Tip: To keep the external scripts up to date periodically pull their repositories and rsync them."
 }
@@ -173,16 +173,16 @@ install_gnupg() {
     file_lst=("dirmngr.conf" "gpg-agent.conf" "gpg.conf")
     for i in "${file_lst[@]}"; do
         if [ -f ~/.gnupg/"$i" ]; then
-            mv ~/.gnupg/"$i" ~/"$backup_dir"/"$i".bak
+            mv ~/.gnupg/"$i" ~/"$BACKUP_DIR"/"$i".bak
         fi
     done
     echo "Done."
 
     # Syncs gnupg configuration files
     echo "Syncing gnupg configuration files..."
-    rsync -zvh "$kdot_dir"/.gnupg/dirmngr.conf ~/.gnupg/dirmngr.conf
-    rsync -zvh "$kdot_dir"/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
-    rsync -zvh "$kdot_dir"/.gnupg/gpg.conf ~/.gnupg/gpg.conf
+    rsync -zvh "$KDOT_DIR"/.gnupg/dirmngr.conf ~/.gnupg/dirmngr.conf
+    rsync -zvh "$KDOT_DIR"/.gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+    rsync -zvh "$KDOT_DIR"/.gnupg/gpg.conf ~/.gnupg/gpg.conf
     echo "Done."
 }
 
@@ -192,14 +192,14 @@ install_utility_configs() {
     if [ "$(command -v npm)" ]; then
         echo "Backing up npmrc..."
         if [ -f ~/.npmrc ]; then
-            mv ~/.npmrc ~/"$backup_dir"/.npmrc.bak
+            mv ~/.npmrc ~/"$BACKUP_DIR"/.npmrc.bak
         fi
         echo "Done."
 
         # Syncs npmrc
         {
             echo "Setting up npmrc..."
-            rsync -zvh "$kdot_dir"/npmrc ~/.npmrc
+            rsync -zvh "$KDOT_DIR"/npmrc ~/.npmrc
             echo "Logging in..."
             npm login # Logs in with npm for authtoken
             echo "Done."
@@ -212,12 +212,12 @@ install_utility_configs() {
     if [ "$(command -v amfora)" ]; then
         if [ -d ~/.config/amfora ]; then
             echo "Backing up amfora config directory..."
-            mv ~/.config/amfora ~/"$backup_dir"/amfora.bak
+            mv ~/.config/amfora ~/"$BACKUP_DIR"/amfora.bak
             echo "Done."
         fi
 
         echo "Syncing amfora config folder..."
-        rsync -azvh "$kdot_dir"/amfora ~/.config/
+        rsync -azvh "$KDOT_DIR"/amfora ~/.config/
         echo "Done."
     else
         echo "Amfora not installed, skipping."
@@ -228,17 +228,17 @@ install_utility_configs() {
         if [ -d ~/.config/bat ]; then
             if [ -f ~/.config/bat/config ]; then
                 echo "Backing up bat config file..."
-                mv ~/.config/bat/config ~/"$backup_dir"/bat_config.bak
+                mv ~/.config/bat/config ~/"$BACKUP_DIR"/bat_config.bak
                 echo "Done."
             fi
 
             echo "Syncing bat config file..."
-            rsync -zvh "$kdot_dir"/bat_config ~/.config/bat/config
+            rsync -zvh "$KDOT_DIR"/bat_config ~/.config/bat/config
             echo "Done."
         else
             mkdir ~/.config/bat
             echo "Syncing bat config file..."
-            rsync -zvh "$kdot_dir"/bat_config ~/.config/bat/config
+            rsync -zvh "$KDOT_DIR"/bat_config ~/.config/bat/config
             echo "Done."
         fi
     else
@@ -250,17 +250,17 @@ install_utility_configs() {
         if [ -d ~/.config/lazygit ]; then
             if [ -f ~/.config/lazygit/config.yml ]; then
                 echo "Backing up lazygit config file..."
-                mv ~/.config/lazygit/config.yml ~/"$backup_dir"/lazygit_config.yml.bak
+                mv ~/.config/lazygit/config.yml ~/"$BACKUP_DIR"/lazygit_config.yml.bak
                 echo "Done."
             fi
 
             echo "Syncing lazygit config file..."
-            rsync -zvh "$kdot_dir"/lazygit_config.yml ~/.config/lazygit/config.yml
+            rsync -zvh "$KDOT_DIR"/lazygit_config.yml ~/.config/lazygit/config.yml
             echo "Done."
         else
             mkdir ~/.config/lazygit
             echo "Syncing lazygit config file..."
-            rsync -zvh "$kdot_dir"/lazygit_config.yml ~/.config/lazygit/config.yml
+            rsync -zvh "$KDOT_DIR"/lazygit_config.yml ~/.config/lazygit/config.yml
             echo "Done."
         fi
     else
@@ -272,17 +272,17 @@ install_utility_configs() {
         if [ -d ~/.config/lsd ]; then
             if [ -f ~/.config/lsd/config.yaml ]; then
                 echo "Backing up lsd config file..."
-                mv ~/.config/lsd/config.yaml ~/"$backup_dir"/lsd_config.yaml.bak
+                mv ~/.config/lsd/config.yaml ~/"$BACKUP_DIR"/lsd_config.yaml.bak
                 echo "Done."
             fi
 
             echo "Syncing lsd config file..."
-            rsync -zvh "$kdot_dir"/lsd_config.yaml ~/.config/lsd/config.yaml
+            rsync -zvh "$KDOT_DIR"/lsd_config.yaml ~/.config/lsd/config.yaml
             echo "Done."
         else
             mkdir ~/.config/lsd
             echo "Syncing lsd config file..."
-            rsync -zvh "$kdot_dir"/lsd_config.yaml ~/.config/lsd/config.yaml
+            rsync -zvh "$KDOT_DIR"/lsd_config.yaml ~/.config/lsd/config.yaml
             echo "Done."
         fi
     else
@@ -294,17 +294,17 @@ install_utility_configs() {
         if [ -d ~/.config/pypoetry ]; then
             if [ -f ~/.config/pypoetry/config.toml ]; then
                 echo "Backing up poetry config file..."
-                mv ~/.config/pypoetry/config.toml ~/"$backup_dir"/poetry_config.toml.bak
+                mv ~/.config/pypoetry/config.toml ~/"$BACKUP_DIR"/poetry_config.toml.bak
                 echo "Done."
             fi
 
             echo "Syncing poetry config file..."
-            rsync -zvh "$kdot_dir"/poetry_config.toml ~/.config/pypoetry/config.toml
+            rsync -zvh "$KDOT_DIR"/poetry_config.toml ~/.config/pypoetry/config.toml
             echo "Done."
         else
             mkdir ~/.config/pypoetry
             echo "Syncing poetry config file..."
-            rsync -zvh "$kdot_dir"/poetry_config.toml ~/.config/pypoetry/config.toml
+            rsync -zvh "$KDOT_DIR"/poetry_config.toml ~/.config/pypoetry/config.toml
             echo "Done."
         fi
     else
@@ -316,12 +316,12 @@ install_utility_configs() {
         if [ -d ~/.config/ngrok ]; then
             if [ -f ~/.config/ngrok/ngrok.yml ]; then
                 echo "Backing up ngrok config file..."
-                mv ~/.config/ngrok/ngrok.yml ~/"$backup_dir"/ngrok_config.yml.bak
+                mv ~/.config/ngrok/ngrok.yml ~/"$BACKUP_DIR"/ngrok_config.yml.bak
                 echo "Done."
             fi
 
             echo "Syncing ngrok config file..."
-            rsync -zvh "$kdot_dir"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
+            rsync -zvh "$KDOT_DIR"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
             read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken
             echo "Logging in..."
             ngrok config add-authtoken "$ngrok_authtoken"
@@ -330,7 +330,7 @@ install_utility_configs() {
         else
             mkdir ~/.config/ngrok
             echo "Syncing ngrok config file..."
-            rsync -zvh "$kdot_dir"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
+            rsync -zvh "$KDOT_DIR"/ngrok_config.yml ~/.config/ngrok/ngrok.yml
             read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken
             echo "Logging in..."
             ngrok config add-authtoken "$ngrok_authtoken"
@@ -345,12 +345,12 @@ install_utility_configs() {
     if [ "$(command -v starship)" ]; then
         if [ -f ~/.config/starship.toml ]; then
             echo "Backing up starship config file..."
-            mv ~/.config/starship.toml ~/"$backup_dir"/starship.toml.bak
+            mv ~/.config/starship.toml ~/"$BACKUP_DIR"/starship.toml.bak
             echo "Done."
         fi
 
         echo "Syncing starship config file..."
-        rsync -zvh "$kdot_dir"/starship.toml ~/.config/starship.toml
+        rsync -zvh "$KDOT_DIR"/starship.toml ~/.config/starship.toml
         echo "Done."
     else
         echo "Starship not installed, skipping"
@@ -360,12 +360,12 @@ install_utility_configs() {
     if [ "$(command -v topgrade)" ]; then
         if [ -f ~/.config/topgrade.toml ]; then
             echo "Backing up topgrade config file..."
-            mv ~/.config/topgrade.toml ~/"$backup_dir"/topgrade.toml.bak
+            mv ~/.config/topgrade.toml ~/"$BACKUP_DIR"/topgrade.toml.bak
             echo "Done."
         fi
 
         echo "Syncing topgrade config file..."
-        rsync -zvh "$kdot_dir"/topgrade.toml ~/.config/topgrade.toml
+        rsync -zvh "$KDOT_DIR"/topgrade.toml ~/.config/topgrade.toml
         echo "Done."
     else
         echo "Topgrade not installed, skipping"
@@ -374,7 +374,7 @@ install_utility_configs() {
 
 # Checks if the requirements of the scripts are installed
 check_requirements() {
-    requirements_list=("zsh" "git" "curl" "rsync" "omz")
+    requirements_list=("zsh" "git" "curl" "rsync")
     for i in "${requirements_list[@]}"; do
         if ! [ "$(command -v "$i")" ]; then
             echo "$i not installed. Install it and then run the script."
@@ -390,7 +390,7 @@ echo "Checking Requirements..."
 check_requirements
 echo "All required commands are installed."
 echo "Proceeding..."
-mkdir "$backup_dir"
+mkdir "$BACKUP_DIR"
 mkdir ~/terminal-utilities
 install_gnupg
 install_git_files
