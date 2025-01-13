@@ -134,9 +134,6 @@ nnoremap <C-f> :NERDTreeFind<CR>
 " Startify Keymaps
 nmap <C-s> :Startify<CR>
 
-" NERDTree Window Position Change.
-let g:NERDTreeWinPos = "Right"
-
 " When Vim Starts without any file arguments
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | Startify | NERDTree | wincmd p | endif
