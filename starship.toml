@@ -20,6 +20,7 @@ $kotlin\
 $dart\
 $ruby\
 $c\
+$java\
 $line_break\
 $character\
 """
@@ -101,7 +102,7 @@ disabled = false
 
 # Containers
 [container]
-symbol = '⬢'
+symbol = '🗄️'
 format = '\[[$symbol $name](yellow dimmed)\]'
 disabled = false
 
@@ -160,7 +161,7 @@ kotlin_binary = 'kotlin'
 disabled = false
 
 [dart]
-symbol = ''
+symbol = '🎯'
 format = '\[[$symbol $version](26)\]'
 version_format = 'v${raw}'
 detect_extensions = ['dart']
@@ -180,11 +181,20 @@ disabled = false
 
 [c]
 symbol = '󰙱'
-format = '\[[$symbol $name\($version\)]($style)\]'
+format = '\[[$symbol $name\($version\)](bold 39)\]'
 version_format = 'v${raw}'
 detect_extensions = ['c', 'h']
 commands = [['gcc', '--version']]
-style = 'bold 39'
+disabled = false
+
+[java]
+symbol = '☕'
+format = '\[[$symbol $version](red dimmed)\]'
+version_format = 'v${raw}'
+detect_extensions = ['java', 'class', 'gradle', 'jar', 'cljs', 'cljc']
+detect_files = ['pom.xml', 'build.gradle.kts', 'build.sbt', '.java-version', 'deps.edn', 'project.clj', 'build.boot', '.sdkmanrc']
+detect_folders = []
+disabled = false
 
 # Prompt & Right Prompt
 [cmd_duration]
@@ -199,8 +209,8 @@ disabled = false
 
 [character]
 format = '$symbol '
-success_symbol = '[](green)'
-error_symbol = '[](red)'
+success_symbol = '[\$](green)'
+error_symbol = '[\$](red)'
 disabled = false
 
 [status]
@@ -219,7 +229,7 @@ disabled = false
 
 [jobs]
 format = ' [$symbol$number](bold blue)'
-symbol = ''
+symbol = '⚙️'
 symbol_threshold = 1
 number_threshold = 2
 disabled = false

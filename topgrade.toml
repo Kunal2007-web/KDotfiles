@@ -1,7 +1,7 @@
 # Topgrade Configuration - Kunal Kumar
 [misc]
 # Disable specific steps - same options as the command line flag
-disable = ["vim", "emacs", "node"]
+disable = ["vim", "emacs", "node", "lensfun"]
 
 # Do not ask to retry failed steps (default: false)
 no_retry = false

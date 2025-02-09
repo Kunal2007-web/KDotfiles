@@ -77,7 +77,12 @@ call plug#begin('~/.vim/plugged')
 	endif
 	Plug 'farmergreg/vim-lastplace'
 	Plug 'sheerun/vim-polyglot'
-  Plug 'ryanoasis/vim-devicons'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'uiiaoo/java-syntax.vim'
+    Plug 'cespare/vim-toml'
+
 
 call plug#end()
 
