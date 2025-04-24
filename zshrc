@@ -5,21 +5,6 @@ source ~/.env
 # Load Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# FPATH Setup for Brew
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-# Path to oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-# Set Zsh Theme
-ZSH_THEME="robbyrussell"
-
-# Disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
-
-# Enable command auto-correction.
-ENABLE_CORRECTION="false"
-
 # Utility functions for zoxide.
 # pwd based on the value of _ZO_RESOLVE_SYMLINKS.
 function __zoxide_pwd() {
@@ -94,6 +79,10 @@ fi
 
 if [ "$(command -v zoxide)" ]; then
     source ~/.completions/zoxide.zsh
+fi
+
+if [ "$(command -v glow)" ]; then
+    source ~/.completions/glow.zsh
 fi
 
 # Plugins and Additional Scripts

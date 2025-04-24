@@ -123,14 +123,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     Plug 'mattn/emmet-vim'
-    Plug 'fcpg/vim-waikiki'
+    Plug 'vimwiki/vimwiki'
+    Plug 'qadzek/link.vim'
 
 call plug#end()
 
 " Vim Functions and vimscript
 " Custom Keymaps
 nmap <C-h> :let @/ = ""<CR>
-nnoremap <leader>ww :e ~/Notes/index.md<CR>
 nnoremap <leader>mk :!glow -t %<CR>
 
 
@@ -308,15 +308,6 @@ hi PmenuThumb ctermbg=61 cterm=NONE guibg=#6272A4 gui=NONE
 let g:UltiSnipsEditSplit='vertical'
 let g:UltiSnipsSnippetDirectories = ['~/.vim/snippets', 'UltiSnips']
 
-" VimWaikiki Settings
-let g:waikiki_roots = ['~/Notes/']
-let maplocalleader = '\'
-let g:waikiki_default_maps = 1
-let g:waikiki_ask_if_noindex = 1
-let g:waikiki_tag_start = '#'
-let g:waikiki_tag_end = '#'
-let g:waikiki_lookup_order = ['ext', 'subdir']
-
 " Vim Move Settings
 let g:move_normal_option = 1
 
@@ -373,3 +364,6 @@ let s:vim_suggest.search.popupattrs = {
 if exists('*g:VimSuggestSetOptions')
   autocmd VimEnter * call g:VimSuggestSetOptions(s:vim_suggest)
 endif
+
+" VimWiki Settings
+let g:vimwiki_list = [{'path': '~/Notes/'}]

@@ -175,18 +175,6 @@ sync_npm() {
     echo "Done."
 }
 
-sync_amfora() {
-    if [ -d "$HOME"/.config/amfora ]; then
-        echo "Backing up amfora config directory..."
-        mv "$HOME"/.config/amfora "$BACKUP_DIR"/amfora.bak
-        echo "Done."
-    fi
-
-    echo "Syncing amfora config folder..."
-    rsync -azvh "$KDOT_DIR"/amfora "$HOME"/.config/
-    echo "Done."    
-}
-
 sync_bat() {
     if [ -d "$HOME"/.config/bat ]; then
         if [ -f "$HOME"/.config/bat/config ]; then

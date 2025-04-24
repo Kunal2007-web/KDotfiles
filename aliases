@@ -9,7 +9,26 @@ if [ "$(command -v zoxide)" ]; then
     alias cdi="zi"
 fi
 
-alias nettest="speedtest-cli"
+if [ "$(command -v speedtest-cli)" ]; then
+    alias nettest="speedtest-cli"
+fi
+
+if [ "$(command -v theme.sh)" ]; then
+    alias set-light="theme.sh google-light"
+    alias set-dark="theme.sh duotone-dark"
+fi
+
+if [ "$(command -v glow)" ]; then
+    alias glow="glow -t"
+fi
+
+if [ "$(command -v trash-put)" ]; then
+    if [ "$(command -v rmtrash)" ]; then
+        alias rm="rmtrash"
+    else 
+        alias rm="echo 'Use trash-cli idiot';"
+    fi
+fi
 
 # Live Server Aliases
 alias testingtunnel="live-server --port=5000 && ngrok start testing"

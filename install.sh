@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Check Requirements
-requirements_list=("zsh" "git" "curl" "rsync" "omz")
+requirements_list=("zsh" "git" "curl" "rsync")
 for i in "${requirements_list[@]}"; do
     if ! [ "$(command -v "$i")" ]; then
         echo "$i not installed. Install it and then run the script."
@@ -18,7 +18,7 @@ mkdir "$HOME"/.dotfiles_backups "$HOME"/terminal-utilities
 printf "Hello! This is the KDotfiles Dotfile Selection Menu:\n"
 while true; do
     printf "Choose Dotfiles to Install/Sync:\n"
-    printf " ,1. gnupg,2. zsh,3. git,4. vim,5. bin\n,6. npmrc,7. amfora,8. bat,9. lazygit,10. lsd\n,11. poetry,12. ngrok,13. starship, 14. topgrade, 15. All" |  column --table -s ","
+    printf " ,1. gnupg,2. zsh,3. git,4. vim,5. bin\n,6. npmrc,7. bat,8. lazygit,9. lsd\n,10. poetry,11. ngrok,12. starship, 13. topgrade, 14. All" |  column --table -s ","
     read -rp "Choose dotfiles [1-15/q](comma-separated): " CHOOSE
     IFS="," read -ra CHOOSE_ARRAY <<< "$CHOOSE"
     for i in "${CHOOSE_ARRAY[@]}"; do
@@ -55,55 +55,49 @@ while true; do
             else
                 echo "npm is not installed. Skipping."
             fi
-        elif [ "$i" -eq "7" ]; then
-            if [ "$(command -v amfora)" ]; then
-                echo "sync_amfora" >> dotfiles.sh
-            else
-                echo "amfora is not installed. Skipping."
-            fi
-        elif [ "$i" -eq "8" ]; then
+       elif [ "$i" -eq "7" ]; then
             if [ "$(command -v bat)" ]; then
                 echo "sync_bat" >> dotfiles.sh
             else
                 echo "bat is not installed. Skipping."
             fi
-        elif [ "$i" -eq "9" ]; then
+        elif [ "$i" -eq "8" ]; then
             if [ "$(command -v lazygit)" ]; then
                 echo "sync_lazygit" >> dotfiles.sh
             else
                 echo "lazygit is not installed. Skipping."
             fi
-        elif [ "$i" -eq "10" ]; then
+        elif [ "$i" -eq "9" ]; then
             if [ "$(command -v lsd)" ]; then
                 echo "sync_lsd" >> dotfiles.sh
             else
                 echo "lsd is not installed. Skipping."
             fi
-        elif [ "$i" -eq "11" ]; then
+        elif [ "$i" -eq "10" ]; then
             if [ "$(command -v poetry)" ]; then
                 echo "sync_poetry" >> dotfiles.sh
             else
                 echo "poetry is not installed. Skipping."
             fi
-        elif [ "$i" -eq "12" ]; then
+        elif [ "$i" -eq "11" ]; then
             if [ "$(command -v ngrok)" ]; then
                 echo "sync_ngrok" >> dotfiles.sh
             else
                 echo "ngrok is not installed. Skipping."
             fi
-        elif [ "$i" -eq "13" ]; then
+        elif [ "$i" -eq "12" ]; then
             if [ "$(command -v starship)" ]; then
                 echo "sync_starship" >> dotfiles.sh
             else
                 echo "starship is not installed. Skipping."
             fi
-        elif [ "$i" -eq "14" ]; then
+        elif [ "$i" -eq "13" ]; then
             if [ "$(command -v topgrade)" ]; then
                 echo "sync_topgrade" >> dotfiles.sh
             else
                 echo "topgrade is not installed. Skipping."
             fi
-        elif [ "$i" -eq "15" ]; then
+        elif [ "$i" -eq "14" ]; then
             echo "sync_all" >> dotfiles.sh
             break 2
         elif [ "$i" = "q" ]; then

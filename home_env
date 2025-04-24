@@ -1,6 +1,12 @@
 # Environment Variables - Kunal Kumar
 # Define $PATH.                                                                                     
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Define XDG Directories
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_STATE_HOME=$HOME/.local/state
+export XDG_CACHE_HOME=$HOME/.cache
 
 # Language Environment
 export LANG=en_US.UTF-8
@@ -11,3 +17,24 @@ export EDITOR=/usr/bin/vim
 # Homebrew
 export HOMEBREW_NO_INSTALL_CLEANUP=
 export HOMEBREW_NO_ENV_HINTS=
+
+# Config Paths
+export CARGO_HOME="$XDG_DATA_HOME"/.cargo
+export DOTNET_CLI_HOME="$XDG_DATA_HOME"/.dotnet
+
+
+# FPATH Setup for Brew
+FPATH="/home/linuxbrew/.linuxbrew/share/zsh/site-functions:${FPATH}"
+
+# Path to oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set Zsh Theme
+ZSH_THEME="robbyrussell"
+
+# Disable auto-setting terminal title.
+DISABLE_AUTO_TITLE="true"
+
+# Enable command auto-correction.
+ENABLE_CORRECTION="false"
+

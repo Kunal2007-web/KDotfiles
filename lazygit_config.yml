@@ -1,5 +1,5 @@
 gui:
-  windowSize: 'normal'
+  screenMode: 'normal'
   sidePanelWidth: 0.30
   expandFocusedSidePanel: true
   language: 'en'
@@ -26,7 +26,7 @@ gui:
   commitLength:
     show: true
   mouseEvents: false
-  skipUnstageLineWarning: false
+  skipDiscardChangeWarning: false
   skipStashWarning: false
   showFileTree: true
   showListFooter: true
@@ -37,7 +37,6 @@ gui:
   commandLogSize: 10
   splitDiff: 'always'
   border: 'rounded'
-
 git:
   paging:
     colorArg: 'always'
@@ -54,9 +53,9 @@ git:
   parseEmoji: true
   diffContextSize: 3
 os:
-  editCommand: 'vim'
-  editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
-  openCommand: 'xdg-open {{filename}} >/dev/null'
+  edit: 'vim'
+  editAtLine: '{{editor}} +{{line}} -- {{filename}}'
+  open: 'xdg-open {{filename}} >/dev/null'
 update:
   method: 'prompt'
   days: 15
@@ -88,7 +87,7 @@ keybinding:
     jumpToBlock: ['1', '2', '3', '4', '5'] # goto the Nth block / panel
     nextMatch: 'n'
     prevMatch: 'N'
-    optionMenu: null # show help menu
+    optionMenu: <disabled> # show help menu
     optionMenu-alt1: '?' # show help menu
     select: '<space>'
     goInto: '<enter>'
@@ -104,7 +103,7 @@ keybinding:
     scrollDownMain-alt1: 'J' # main panel scroll down
     scrollUpMain-alt2: '<c-u>' # main panel scroll up
     scrollDownMain-alt2: '<c-d>' # main panel scroll down
-    executeCustomCommand: ':'
+    executeShellCommand: ':'
     createRebaseOptionsMenu: 'm'
     pushFiles: 'P'
     pullFiles: 'p'
@@ -194,4 +193,3 @@ keybinding:
     init: 'i'
     update: 'u'
     bulkMenu: 'b'
-
