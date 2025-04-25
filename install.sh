@@ -97,14 +97,20 @@ while true; do
                 echo "topgrade is not installed. Skipping."
             fi
         elif [ "$i" -eq "14" ]; then
+            if [ "$(command -v amfora)" ]; then
+                sync_amfora
+            else
+                echo "amfora is not installed. Skipping."
+            fi
+        elif [ "$i" -eq "15" ]; then
             sync_all
             break 2
         elif [ "$i" = "q" ]; then
             echo "Exiting..."
             break 2
-        else; then
+        else
             echo "Invalid Option!"
-        fi
+    	fi
     done
 done
 

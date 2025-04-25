@@ -73,15 +73,15 @@ sync_git_files() {
         read -rp "Enter a diff and merge tool (default: vimdiff): " tool
         if [ -z "$tool" ]; then
             git config --global diff.tool "vimdiff"
-            git config --global difftool.vimdiff.cmd "vimdiff $LOCAL $REMOTE"
+            git config --global difftool.vimdiff.cmd "vimdiff \$LOCAL \$REMOTE"
             git config --global merge.tool "vimdiff"
-            git config --global mergetool.vimdiff.cmd "vimdiff $MERGED $LOCAL $REMOTE"
+            git config --global mergetool.vimdiff.cmd "vimdiff \$MERGED \$LOCAL \$REMOTE"
         else
             read -rp "Enter the valid command for the diff and merge tool: " tool_cmd
             git config --global diff.tool "$tool"
-            git config --global difftool."$tool".cmd "$tool_cmd $LOCAL $REMOTE"
+            git config --global difftool."$tool".cmd "$tool_cmd \$LOCAL \$REMOTE"
             git config --global merge.tool "$tool"
-            git config --global mergetool."$tool".cmd "$tool_cmd $MERGED $LOCAL $REMOTE"
+            git config --global mergetool."$tool".cmd "$tool_cmd \$MERGED \$LOCAL \$REMOTE"
         fi
         ;;
     [nN]*)
@@ -158,6 +158,21 @@ sync_gnupg() {
 
     echo "Syncing gnupg configuration files..."
     rsync -azvhu "$KDOT_DIR"/.gnupg/ "$HOME"/
+    echo "Done."
+}
+
+sync_amfora() {
+    echo "Backing up old amfora files..."
+    file_lst=("config.toml" "newtab.gmi")
+    for i in "${file_lst[@]}"; do
+        if [ -f "$HOME"/.config/amfora/"$i" ]; then
+            mv "$HOME"/.confi/amfora/"$i" "$BACKUP_DIR"/"$i".bak
+        fi
+    done
+    echo "Done."
+
+    echo "Syncing amfora files..."
+    rsync -azvhu "$KDOT_DIR"/amfora/ "$HOME"/.config/
     echo "Done."
 }
 
