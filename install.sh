@@ -10,8 +10,7 @@ for i in "${requirements_list[@]}"; do
 done
 
 # Create installation files/directories
-echo "#!/usr/bin/env bash" > dotfiles.sh
-echo "source sync-functions.sh" >> dotfiles.sh
+source sync-functions.sh 
 mkdir "$HOME"/.dotfiles_backups "$HOME"/terminal-utilities
 
 # Menu
@@ -24,90 +23,91 @@ while true; do
     for i in "${CHOOSE_ARRAY[@]}"; do
         if [ "$i" -eq "1" ]; then
             if [ "$(command -v gpg)" ]; then
-                echo "sync_gnupg" >> dotfiles.sh
+                sync_gnupg
             else
                 echo "GPG is not installed. Skipping."
             fi
         elif [ "$i" -eq "2" ]; then
             if [ "$(command -v omz)" ]; then
-                echo "sync_zshrc" >> dotfiles.sh
-                echo "sync_zsh_scripts" >> dotfiles.sh
+                sync_zshrc
+                sync_zsh_scripts
             else
                 echo "zsh is not installed. Skipping."
             fi
         elif [ "$i" -eq "3" ]; then
             if [ "$(command -v git)" ]; then
-                echo "sync_git_files" >> dotfiles.sh
+                sync_git_files
             else
                 echo "git is not installed. Skipping."
             fi
         elif [ "$i" -eq "4" ]; then
             if [ "$(command -v vim)" ]; then
-                echo "sync_vim_config" >> dotfiles.sh
+                sync_vim_config
             else
                 echo "vim is not installed. Skipping."
             fi
         elif [ "$i" -eq "5" ]; then
-            echo "sync_bin_dir" >> dotfiles.sh
+            sync_bin_dir
         elif [ "$i" -eq "6" ]; then
             if [ "$(command -v npm)" ]; then
-                echo "sync_npm" >> dotfiles.sh
+                sync_npm
             else
                 echo "npm is not installed. Skipping."
             fi
        elif [ "$i" -eq "7" ]; then
             if [ "$(command -v bat)" ]; then
-                echo "sync_bat" >> dotfiles.sh
+                sync_bat
             else
                 echo "bat is not installed. Skipping."
             fi
         elif [ "$i" -eq "8" ]; then
             if [ "$(command -v lazygit)" ]; then
-                echo "sync_lazygit" >> dotfiles.sh
+                sync_lazygit
             else
                 echo "lazygit is not installed. Skipping."
             fi
         elif [ "$i" -eq "9" ]; then
             if [ "$(command -v lsd)" ]; then
-                echo "sync_lsd" >> dotfiles.sh
+                sync_lsd
             else
                 echo "lsd is not installed. Skipping."
             fi
         elif [ "$i" -eq "10" ]; then
             if [ "$(command -v poetry)" ]; then
-                echo "sync_poetry" >> dotfiles.sh
+                sync_poetry
             else
                 echo "poetry is not installed. Skipping."
             fi
         elif [ "$i" -eq "11" ]; then
             if [ "$(command -v ngrok)" ]; then
-                echo "sync_ngrok" >> dotfiles.sh
+                sync_ngrok
             else
                 echo "ngrok is not installed. Skipping."
             fi
         elif [ "$i" -eq "12" ]; then
             if [ "$(command -v starship)" ]; then
-                echo "sync_starship" >> dotfiles.sh
+                sync_starship
             else
                 echo "starship is not installed. Skipping."
             fi
         elif [ "$i" -eq "13" ]; then
             if [ "$(command -v topgrade)" ]; then
-                echo "sync_topgrade" >> dotfiles.sh
+                sync_topgrade
             else
                 echo "topgrade is not installed. Skipping."
             fi
         elif [ "$i" -eq "14" ]; then
-            echo "sync_all" >> dotfiles.sh
+            sync_all
             break 2
         elif [ "$i" = "q" ]; then
             echo "Exiting..."
             break 2
+        else; then
+            echo "Invalid Option!"
         fi
     done
 done
 
-sh dotfiles.sh
 printf "Dotfiles Installation/Syncing Done.\n"
 printf "It's recommended to restart your device. If you encountered any bugs/mistakes:\n"
 printf "Please raise an issue at https://github.com/Kunal2007-web/KDotfiles/issues"
