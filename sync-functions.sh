@@ -166,7 +166,7 @@ sync_amfora() {
     file_lst=("config.toml" "newtab.gmi")
     for i in "${file_lst[@]}"; do
         if [ -f "$HOME"/.config/amfora/"$i" ]; then
-            mv "$HOME"/.confi/amfora/"$i" "$BACKUP_DIR"/"$i".bak
+            mv "$HOME"/.config/amfora/"$i" "$BACKUP_DIR"/"$i".bak
         fi
     done
     echo "Done."
