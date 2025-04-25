@@ -17,7 +17,7 @@ mkdir "$HOME"/.dotfiles_backups "$HOME"/terminal-utilities
 printf "Hello! This is the KDotfiles Dotfile Selection Menu:\n"
 while true; do
     printf "Choose Dotfiles to Install/Sync:\n"
-    printf " ,1. gnupg,2. zsh,3. git,4. vim,5. bin\n,6. npmrc,7. bat,8. lazygit,9. lsd\n,10. poetry,11. ngrok,12. starship, 13. topgrade, 14. All" |  column --table -s ","
+    printf " ,1. gnupg,2. zsh,3. git,4. vim,5. bin\n,6. npmrc,7. bat,8. lazygit,9. lsd\n,10. poetry,11. ngrok,12. starship, 13. topgrade, 14. amfora, 15. all" |  column --table -s ","
     read -rp "Choose dotfiles [1-15/q](comma-separated): " CHOOSE
     IFS="," read -ra CHOOSE_ARRAY <<< "$CHOOSE"
     for i in "${CHOOSE_ARRAY[@]}"; do
