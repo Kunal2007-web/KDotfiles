@@ -115,7 +115,7 @@ sync_git_files() {
 }
 
 sync_vim_config() {
-    file_lst=(".vimrc" ".vim")
+    file_lst=(".vimrc" ".vim" "coc-settings.vim")
     echo "Creating Backups of vim files and folders..."
     for i in "${file_lst[@]}"; do
         if [ -e "$i" ]; then
@@ -127,6 +127,7 @@ sync_vim_config() {
     echo "Setting up vimrc and vim folder..."
     mkdir -p "$HOME"/.vim "$HOME"/.vim/autoload "$HOME"/.vim/backup "$HOME"/.vim/colors "$HOME"/.vim/plugged
     rsync -zvh "$KDOT_DIR"/vimrc "$HOME"/.vimrc
+    rsync -zvh "$KDOT_DIR"/coc-settings.vim "$HOME"/.vim/coc-settings.vim
     echo "Plugins will be installed on first startup,"
     echo "Done."
 
@@ -157,7 +158,7 @@ sync_gnupg() {
     echo "Done."
 
     echo "Syncing gnupg configuration files..."
-    rsync -azvhu "$KDOT_DIR"/.gnupg/ "$HOME"/
+    rsync -azvhu "$KDOT_DIR"/.gnupg "$HOME"/
     echo "Done."
 }
 
@@ -172,7 +173,7 @@ sync_amfora() {
     echo "Done."
 
     echo "Syncing amfora files..."
-    rsync -azvhu "$KDOT_DIR"/amfora/ "$HOME"/.config/
+    rsync -azvhu "$KDOT_DIR"/amfora "$HOME"/.config/
     echo "Done."
 }
 
@@ -317,6 +318,18 @@ sync_topgrade() {
     echo "Done."
 }
 
+sync_zellij() {
+    if [ -f "$HOME"/.config/zellij/config.kdl ]; then
+        echo "Backing up zellij config file..."
+        mv "$HOME"/.config/zellij/config.kdl "$BACKUP_DIR"/zellij_config.kdl.bak
+        echo "Done."
+    fi
+
+    echo "Syncing zellij config file..."
+    rsync -zvh "$KDOT_DIR"/zellij_config.kdl "$HOME"/.config/zellij/config.kdl
+    echo"Done."
+}
+
 sync_all() {
     sync_gnupg
     sync_zshrc
@@ -333,4 +346,5 @@ sync_all() {
     sync_poetry
     sync_starship
     sync_topgrade
+    sync_zellij
 }
