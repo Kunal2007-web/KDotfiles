@@ -17,8 +17,8 @@ mkdir "$HOME"/.dotfiles_backups "$HOME"/terminal-utilities
 printf "Hello! This is the KDotfiles Dotfile Selection Menu:\n"
 while true; do
     printf "Choose Dotfiles to Install/Sync:\n"
-    printf " ,1. gnupg,2. zsh,3. git,4. vim,5. bin\n,6. npmrc,7. bat,8. lazygit,9. lsd\n,10. poetry,11. ngrok,12. starship, 13. topgrade, 14. amfora, 15. zellij, 16. all" |  column --table -s ","
-    read -rp "Choose dotfiles [1-15/q](comma-separated): " CHOOSE
+    printf " ,1. gnupg,2. zsh,3. git,4. vim,5. bin\n,6. npmrc,7. bat,8. lazygit,9. lsd,10. poetry\n,11. ngrok,12. starship,13. topgrade,14. amfora,15. zellij\n,16. ghostty,17. superfile,18. all" |  column --table -s ","
+    read -rp "Choose dotfiles [1-17/q](comma-separated): " CHOOSE
     IFS="," read -ra CHOOSE_ARRAY <<< "$CHOOSE"
     for i in "${CHOOSE_ARRAY[@]}"; do
         if [ "$i" -eq "1" ]; then
@@ -109,6 +109,18 @@ while true; do
                 echo "zellij is not installed. Skipping."
             fi
         elif [ "$i" -eq "16" ]; then
+            if [ "$(command -v ghostty)" ]; then
+                sync_ghostty
+            else
+                echo "ghostty is not installed. Skipping."
+            fi
+        elif [ "$i" -eq "17" ]; then
+            if [ "$(command -v spf)" ]; then
+                sync_superfile
+            else
+                echo "superfile is not installed. Skipping."
+            fi
+        elif [ "$i" -eq "18" ]; then
             sync_all
             break 2
         elif [ "$i" = "q" ]; then

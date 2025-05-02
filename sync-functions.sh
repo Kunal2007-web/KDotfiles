@@ -327,7 +327,31 @@ sync_zellij() {
 
     echo "Syncing zellij config file..."
     rsync -zvh "$KDOT_DIR"/zellij_config.kdl "$HOME"/.config/zellij/config.kdl
-    echo"Done."
+    echo "Done."
+}
+
+sync_ghostty() {
+    if [ -f "$HOME"/.config/ghostty/config ]; then
+        echo "Backing up ghostty config file..."
+        mv "$HOME"/.config/ghostty/config "$BACKUP_DIR"/ghostty_config.bak
+        echo "Done."
+    fi
+
+    echo "Syncing ghostty config file..."
+    rsync -zvh "$KDOT_DIR"/ghostty_config "$HOME"/.config/ghostty/config
+    echo "Done."
+}
+
+sync_superfile() {
+    if [ -f "$HOME"/.config/superfile/config.toml ]; then
+        echo "Backing up superfile config file..."
+        mv "$HOME"/.config/superfile/config.toml "$BACKUP_DIR"/superfile_config.toml.bak
+        echo "Done."
+    fi
+
+    echo "Syncing superfile config file..."
+    rsync -zvh "$KDOT_DIR"/superfile_config.toml "$HOME"/.config/superfile/config.toml
+    echo "Done."
 }
 
 sync_all() {
@@ -347,4 +371,5 @@ sync_all() {
     sync_starship
     sync_topgrade
     sync_zellij
+    sync_ghostty
 }

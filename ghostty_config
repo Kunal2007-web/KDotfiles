@@ -1,0 +1,39 @@
+# Ghostty Config File - Kunal Kumar
+# Font Settings
+font-family = "GohuFont uni14 Nerd Font Mono"
+font-style = true
+font-synthetic-style = true
+font-size = 15
+alpha-blending = native
+
+# Theme Settings
+theme = GruvboxDark
+
+# Mouse Settings
+mouse-hide-while-typing = true
+mouse-shift-capture = true
+
+# Window Settings
+title = " "
+window-vsync = true
+window-decoration = server
+window-theme = ghostty
+window-colorspace = display-p3
+window-save-state = never
+
+# Clipboard Settings
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = true
+
+# Shell Integration
+shell-integration = zsh
+shell-integration-features = true
+
+# Terminal Settings
+bold-is-bright = true
+
+# Update Settings
+auto-update = check
+auto-update-channel = stable
