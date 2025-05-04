@@ -4,12 +4,12 @@
 <Emoji><Commit Scope>: Subject Line [<Branch Name>]
 
 # Describe Commit and Changes in small and concise paragraphs. Till Here 
+Changes Made:
+	- In Bullet Points 
+	- 
+
 Describe the Problem/Feature. If there is a 
 problem, also describe the solution.
-
-Changes Made:
-	- In Bullet Points (<Filename>)
-	- 
 
 Files Changed:
 	Add Status of Files: From Below

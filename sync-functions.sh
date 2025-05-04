@@ -354,6 +354,18 @@ sync_superfile() {
     echo "Done."
 }
 
+sync_templates_dir() {
+    if [ -d "$HOME"/Templates ]; then
+        echo "Backing up templates folder..."
+        cp -r "$HOME"/Templates "$BACKUP_DIR"/Templates.bak
+        echo "Done."
+    fi
+
+    echo "Syncing templates folder..."
+    rsync -azvhu "$KDOT_DIR"/Templates "$HOME"/
+    echo "Done."
+}
+
 sync_all() {
     sync_gnupg
     sync_zshrc
@@ -372,4 +384,5 @@ sync_all() {
     sync_topgrade
     sync_zellij
     sync_ghostty
+    sync_templates_dir
 }
