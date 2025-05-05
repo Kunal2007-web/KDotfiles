@@ -366,6 +366,19 @@ sync_templates_dir() {
     echo "Done."
 }
 
+sync_gnome_extensions() {
+    if [ -f "$HOME"/gnome-extensions ]; then
+        for line in $(\cat "$HOME"/gnome-extensions)
+        do
+            gnome-extensions-cli install "$line"
+        done
+    fi
+
+    if [ -f "$HOME"/gnome-extensions-config.ini ]; then
+        dconf load /org/gnome/shell/extensions/ < "$HOME"/gnome-extensions-config.ini
+    fi
+}
+
 sync_all() {
     sync_gnupg
     sync_zshrc
