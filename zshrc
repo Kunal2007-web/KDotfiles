@@ -113,3 +113,7 @@ fi
 if [ "$(command -v theme.sh)" ]; then
     theme.sh duotone-dark
 fi
+
+if [ "$(command -v zellij)" ]; then
+    eval "$(zellij setup --generate-auto-start zsh)" 
+fi

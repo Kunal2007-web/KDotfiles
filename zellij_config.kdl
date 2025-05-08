@@ -6,7 +6,7 @@ pane_frames true
 default_mode "locked"
 mouse_mode true
 copy_command "xclip -selection clipboard"
-copy_on_select false
+copy_on_select true
 ui {
     pane_frames {
         rounded_corners true

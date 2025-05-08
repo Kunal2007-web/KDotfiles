@@ -367,16 +367,12 @@ sync_templates_dir() {
 }
 
 sync_gnome_extensions() {
-    if [ -f "$HOME"/gnome-extensions ]; then
-        for line in $(\cat "$HOME"/gnome-extensions)
-        do
-            gnome-extensions-cli install "$line"
-        done
-    fi
+    for line in $(\cat "$KDOT_DIR"/gnome-extensions)
+    do
+        gnome-extensions-cli install "$line"
+    done
 
-    if [ -f "$HOME"/gnome-extensions-config.ini ]; then
-        dconf load /org/gnome/shell/extensions/ < "$HOME"/gnome-extensions-config.ini
-    fi
+    dconf load /org/gnome/shell/extensions/ < "$KDOT_DIR"/gnome-extensions-config.ini
 }
 
 sync_all() {

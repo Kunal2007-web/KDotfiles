@@ -4,10 +4,10 @@
 theme = 'gruvbox'
 # 
 # The editor files will be opened with. (Leave blank to use the EDITOR environment variable).
-editor = "vim"
+editor = ""
 # 
 # The editor directories will be opened with. (Leave blank to use the default editors).
-dir_editor = "vim"
+dir_editor = ""
 #
 # Auto check for update
 auto_check_update = true
@@ -42,7 +42,7 @@ debug = false
 # ================   Style =================
 #
 # Whether to use the builtin syntax highlighting with chroma or use bat. Values: "" for builtin chroma, "bat" for bat
-code_previewer = 'batj='
+code_previewer = ''
 # 
 # If you don't have or don't want Nerdfont installed you can turn this off
 nerdfont = true

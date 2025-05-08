@@ -30,6 +30,11 @@ if [ "$(command -v trash-put)" ]; then
     fi
 fi
 
+if [ "$(command -v zellij)" ]; then
+    alias ze="zellij edit"
+    alias zr="zellij run --"
+fi
+
 # Live Server Aliases
 alias testingtunnel="live-server --port=5000 && ngrok start testing"
 alias demotunnel="live-server --port=8000 && ngrok start demo"

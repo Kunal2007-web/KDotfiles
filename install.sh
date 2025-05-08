@@ -28,7 +28,7 @@ while true; do
                 echo "GPG is not installed. Skipping."
             fi
         elif [ "$i" -eq "2" ]; then
-            if [ "$(command -v omz)" ]; then
+            if [ "$(command -v zsh)" ]; then
                 sync_zshrc
                 sync_zsh_scripts
             else
@@ -123,7 +123,7 @@ while true; do
         elif [ "$i" -eq "18" ]; then
             sync_templates_dir
         elif [ "$i" -eq "19" ]; then
-            if [ "$(command -v gnome-extensions-cli)" && "$(command -v dconf)" ]; then
+            if [ "$(command -v gnome-extensions-cli)" ]; then
                 sync_gnome_extensions
             else
                 echo "gnome-extensions-cli or dconf is not installed. Skipping."
