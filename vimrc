@@ -133,7 +133,6 @@ call plug#end()
 nmap <C-h> :let @/ = ""<CR>
 nnoremap <leader>mk :!glow -t %<CR>
 
-
 " Disable Arrow Keymaps in Normal and Visual Modes
 for mode in ['n', 'v']
     for key in ['<Left>', '<Right>', '<Up>', '<Down>']

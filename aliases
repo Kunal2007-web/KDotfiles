@@ -49,3 +49,8 @@ alias gaf="git add"
 # Zoxide Aliases
 alias z=__zoxide_z
 alias zi=__zoxide_zi
+
+# ASCII Art Video Player
+if [ "$(command -v mplayer)" ]; then
+  alias ascii_play="sudo mplayer -noautosub -really-quiet -monitorpixelaspect 1.0 -vo aa:driver=curses:contrast=45" 
+fi
