@@ -15,7 +15,8 @@ function ginit() {
     echo "Creating Template Directory Structure..."
     mkdir docs
     touch LICENSE README.md 
-    read -rp "Is the repository open-source?[y/N]: " open_repo_choice
+    printf "Is the repository open-source? [y/N]: "
+    read -r open_repo_choice
     case $open_repo_choice in
     [yY]*) touch docs/CONTRIBUTING.md
     cd docs || exit
