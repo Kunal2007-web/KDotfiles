@@ -211,6 +211,10 @@ disabled = false
 format = '$symbol '
 success_symbol = '[\$](green)'
 error_symbol = '[\$](red)'
+vimcmd_symbol = '[v\$](bold green)'
+vimcmd_replace_one_symbol = '[v\$](bold purple)'
+vimcmd_replace_symbol = '[v\$](bold purple)'
+vimcmd_visual_symbol = '[v\$](bold yellow)'
 disabled = false
 
 [status]
