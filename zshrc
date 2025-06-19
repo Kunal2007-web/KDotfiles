@@ -35,6 +35,10 @@ if [ "$(command -v glow)" ]; then
     source ~/.completions/glow.zsh
 fi
 
+if [ "$(command -v fzf)" ]; then
+    source ~/.completions/fzf.zsh
+fi
+
 # Plugins and Additional Scripts
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
 
@@ -61,7 +65,7 @@ if [ "$(command -v nitch)" ]; then
 fi
 
 if [ "$(command -v theme.sh)" ]; then
-    theme.sh duotone-dark
+    theme.sh gruvbox-dark
 fi
 
 if [ "$(command -v zellij)" ]; then
