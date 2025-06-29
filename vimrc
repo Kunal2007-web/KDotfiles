@@ -123,7 +123,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
     Plug 'mattn/emmet-vim'
-    Plug 'vimwiki/vimwiki'
     Plug 'qadzek/link.vim'
 
 call plug#end()
@@ -363,6 +362,3 @@ let s:vim_suggest.search.popupattrs = {
 if exists('*g:VimSuggestSetOptions')
   autocmd VimEnter * call g:VimSuggestSetOptions(s:vim_suggest)
 endif
-
-" VimWiki Settings
-let g:vimwiki_list = [{'path': '~/Notes/'}]
