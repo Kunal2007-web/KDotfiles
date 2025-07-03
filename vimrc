@@ -183,7 +183,7 @@ let g:startify_lists = [
 
 " Use Custom Header in startify with figlet
 let g:startify_custom_header =
-       \ startify#pad(split(system('figlet -w 100 Vim - Kunal'), '\n'))
+       \ startify#pad(split(system('figlet -w 100 -k Vim - Kunal'), '\n'))
 
 " Airline Settings
 let g:airline_theme='onedark'
