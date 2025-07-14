@@ -49,9 +49,11 @@ git:
     showGraph: 'always'
     showWholeGraph: true
   branchLogCmd: 'git log --graph --oneline --abbrev-commit --date=short --decorate {{branchName}} --'
-  allBranchesLogCmd: 'git log --graph --oneline --abbrev-commit --all --decorate --date=short'
+  allBranchesLogCmd: 'git log --graph --oneline --abbrev-commit --all --decorate --date=short --'
   parseEmoji: true
   diffContextSize: 3
+  allBranchesLogCmds:
+    - 'git log --graph --oneline --abbrev-commit --all --decorate --date=short --'
 os:
   edit: 'vim'
   editAtLine: '{{editor}} +{{line}} -- {{filename}}'
