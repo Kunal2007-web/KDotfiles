@@ -342,6 +342,18 @@ sync_ghostty() {
     echo "Done."
 }
 
+sync_rioterm() {
+    if [ -f "$HOME"/.config/rio/config.toml ]; then
+        echo "Backing up rio term config file..."
+        mv "$HOME"/.config/rio/config.toml "$BACKUP_DIR"/rio_config.toml.bak
+        echo "Done."
+    fi
+
+    echo "Syncing rio term config file..."
+    rsync -zvh "$KDOT_DIR"/rio_config.toml "$HOME"/.config/rio/config.toml
+    echo "Done."
+}
+
 sync_superfile() {
     if [ -f "$HOME"/.config/superfile/config.toml ]; then
         echo "Backing up superfile config file..."
@@ -393,5 +405,6 @@ sync_all() {
     sync_topgrade
     sync_zellij
     sync_ghostty
+    sync_rioterm
     sync_templates_dir
 }

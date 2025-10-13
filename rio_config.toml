@@ -1,0 +1,47 @@
+# Rio Term Configuration - Kunal Kumar
+draw-bold-text-with-light-colors = true
+hide-cursor-when-typing = false
+theme = "Floraverse"
+line-height = 1.4
+working-dir = "$HOME"
+confirm-before-quit = false
+
+[cursor]
+shape = 'block'
+blinking = true
+blinking-interval = 800
+
+[editor]
+program = "vim"
+
+[window]
+mode = "maximized"
+opacity = 1.0
+blur = true
+decorations = "disabled"
+colorspace = "display-p3"
+
+[renderer]
+performance = "low"
+backend = "automatic"
+disable-unfocused-render = false
+level = 1
+
+[keyboard]
+use-kitty-keyboard-protocol = true
+disable-ctlseqs-alt = true
+ime-cursor-positioning = true
+
+[fonts]
+size = 18
+family = "GohuFont uni14 Nerd Font Mono"
+style = "Normal"
+width = "Medium"
+use-drawable-chars = true
+hinting = true
+
+[fonts.emoji]
+family = "Noto Color Emoji"
+
+[shell]
+program = "zsh"
