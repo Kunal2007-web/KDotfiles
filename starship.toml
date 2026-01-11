@@ -21,6 +21,7 @@ $dart\
 $ruby\
 $c\
 $java\
+$php\
 $line_break\
 $character\
 """
@@ -125,9 +126,9 @@ disabled = false
 
 [python]
 symbol = ''
-format = '\[[$symbol $version\($virtualenv $pyenv_prefix\)](bright-green)\]'
+format = '\[[$symbol $version\($virtualenv$pyenv_prefix\)](bright-green)\]'
 version_format = 'v${raw}'
-pyenv_prefix = 'pyenv'
+pyenv_prefix = ' pyenv'
 python_binary = ['python', 'python2', 'python3']
 detect_extensions = ['py']
 detect_files = ['.python_version', 'Pipfile', '__init__.py', 'pyproject.toml', 'setup.py', 'tox.ini']
@@ -193,6 +194,15 @@ format = '\[[$symbol $version](red dimmed)\]'
 version_format = 'v${raw}'
 detect_extensions = ['java', 'class', 'gradle', 'jar', 'cljs', 'cljc']
 detect_files = ['pom.xml', 'build.gradle.kts', 'build.sbt', '.java-version', 'deps.edn', 'project.clj', 'build.boot', '.sdkmanrc']
+detect_folders = []
+disabled = false
+
+[php]
+symbol = '🐘'
+format = '\[[$symbol $version](147)\]'
+version_format = 'v${raw}'
+detect_extensions = ['php']
+detect_files = ['composer.json', '.php-version']
 detect_folders = []
 disabled = false
 

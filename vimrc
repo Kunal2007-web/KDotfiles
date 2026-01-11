@@ -124,6 +124,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'honza/vim-snippets'
     Plug 'mattn/emmet-vim'
     Plug 'qadzek/link.vim'
+    Plug 'kaarmu/typst.vim'
 
 call plug#end()
 

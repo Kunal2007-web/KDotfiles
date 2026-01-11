@@ -13,8 +13,6 @@ gui:
       - magenta
     selectedLineBgColor:
       - cyan
-    selectedRangeBgColor:
-      - cyan
     cherryPickedCommitBgColor:
       - yellow
     cherryPickedCommitFgColor:
@@ -38,18 +36,15 @@ gui:
   splitDiff: 'always'
   border: 'rounded'
 git:
-  paging:
-    colorArg: 'always'
-    useConfig: true
+  pagers:
+    - colorArg: 'always'
   commit:
     signOff: true
-    verbose: 'always'
   log:
     order: 'topo-order'
     showGraph: 'always'
     showWholeGraph: true
   branchLogCmd: 'git log --graph --oneline --abbrev-commit --date=short --decorate {{branchName}} --'
-  allBranchesLogCmd: 'git log --graph --oneline --abbrev-commit --all --decorate --date=short --'
   parseEmoji: true
   diffContextSize: 3
   allBranchesLogCmds:
@@ -122,7 +117,6 @@ keybinding:
     diffingMenu-alt: '<c-e>' # deprecated
     copyToClipboard: '<c-o>'
     submitEditorText: '<enter>'
-    appendNewline: '<a-enter>'
     extrasMenu: '@'
     toggleWhitespaceInDiffView: '<c-w>'
     increaseContextInDiffView: '}'
@@ -143,7 +137,7 @@ keybinding:
     viewResetOptions: 'D'
     fetch: 'f'
     toggleTreeView: '`'
-    openMergeTool: 'M'
+    openMergeOptions: 'M'
     openStatusFilter: '<c-b>'
   branches:
     createPullRequest: 'o'
@@ -173,12 +167,10 @@ keybinding:
     pickCommit: 'p' # pick commit (when mid-rebase)
     revertCommit: 't'
     cherryPickCopy: 'c'
-    cherryPickCopyRange: 'C'
     pasteCommits: 'v'
     tagCommit: 'T'
     checkoutCommit: '<space>'
     resetCherryPick: '<c-R>'
-    copyCommitMessageToClipboard: '<c-y>'
     openLogMenu: '<c-l>'
     viewBisectOptions: 'b'
   stash:
@@ -187,8 +179,6 @@ keybinding:
   commitFiles:
     checkoutCommitFile: 'c'
   main:
-    toggleDragSelect: 'v'
-    toggleDragSelect-alt: 'V'
     toggleSelectHunk: 'a'
     pickBothHunks: 'b'
   submodules:

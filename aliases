@@ -52,7 +52,7 @@ alias zi=__zoxide_zi
 
 # Terminal Video Player
 if [ "$(command -v mplayer)" ]; then
-  alias ascii_play="sudo mplayer -noautosub -really-quiet -monitorpixelaspect 1.0 -vo aa:driver=curses:contrast=45" 
+  alias ascii_play="sudo mplayer -noautosub -really-quiet -monitorpixelaspect 0.5 -vo aa:driver=curses:contrast=45" 
 fi
 
 if [ "$(command -v mpv)" ]; then

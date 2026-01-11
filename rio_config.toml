@@ -1,10 +1,11 @@
 # Rio Term Configuration - Kunal Kumar
 draw-bold-text-with-light-colors = true
-hide-cursor-when-typing = false
+hide-mouse-cursor-when-typing = false
 theme = "Floraverse"
-line-height = 1.4
+line-height = 1.2
 working-dir = "$HOME"
 confirm-before-quit = false
+use-kitty-keyboard-protocol = true
 
 [cursor]
 shape = 'block'
@@ -26,15 +27,16 @@ performance = "low"
 backend = "automatic"
 disable-unfocused-render = false
 level = 1
+disable-occluded-render = true
+target-fps = 60
 
 [keyboard]
-use-kitty-keyboard-protocol = true
 disable-ctlseqs-alt = true
 ime-cursor-positioning = true
 
 [fonts]
 size = 18
-family = "GohuFont uni14 Nerd Font Mono"
+family = "DepartureMono Nerd Font"
 style = "Normal"
 width = "Medium"
 use-drawable-chars = true
