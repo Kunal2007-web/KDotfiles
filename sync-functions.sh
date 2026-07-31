@@ -289,7 +289,6 @@ sync_ngrok() {
         read -rp "Enter ngrok authtoken from https://dashboard.ngrok.com/get-started/your-authtoken : " ngrok_authtoken
         echo "Logging in..."
         ngrok config add-authtoken "$ngrok_authtoken"
-        echo "Tip: Change the username and password for predefined tunnels in the config file, in ~/.config/ngrok/ngrok.yml ."
         echo "Done."
     fi
 }
