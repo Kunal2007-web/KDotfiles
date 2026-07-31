@@ -24,8 +24,8 @@ endpoints:
   - name: testing
     upstream:
       url: 5000
-      protocol: http2
+      protocol: http1
   - name: demo
     upstream:
       url: 8000
-      protocol: http2
+      protocol: http1

@@ -8,7 +8,7 @@ confirm-before-quit = false
 use-kitty-keyboard-protocol = true
 
 [cursor]
-shape = 'block'
+shape = "block"
 blinking = true
 blinking-interval = 800
 
@@ -23,10 +23,9 @@ decorations = "disabled"
 colorspace = "display-p3"
 
 [renderer]
-performance = "low"
-backend = "automatic"
+strategy = "Events"
+backend = "Vulkan"
 disable-unfocused-render = false
-level = 1
 disable-occluded-render = true
 target-fps = 60
 
@@ -37,8 +36,7 @@ ime-cursor-positioning = true
 [fonts]
 size = 18
 family = "DepartureMono Nerd Font"
-style = "Normal"
-width = "Medium"
+style = "Medium"
 use-drawable-chars = true
 hinting = true
 

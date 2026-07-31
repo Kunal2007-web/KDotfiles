@@ -13,28 +13,49 @@ function chpwd() {
 function ginit() {
     git init
     echo "Creating Template Directory Structure..."
-    mkdir docs
-    touch LICENSE README.md 
+    touch README.md
+    dir_name=$(basename $PWD)
+    echo "# $dir_name" > README.md
     printf "Is the repository open-source? [y/N]: "
     read -r open_repo_choice
     case $open_repo_choice in
-    [yY]*) touch docs/CONTRIBUTING.md
+    [yY]*) echo "Create contribution guidelines in the CONTRIBUTING.md"
+    mkdir docs
+    touch docs/CONTRIBUTING.md
     cd docs || exit
     wget -O CODE_OF_CONDUCT.md https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md
     cd ..
-    echo "For LICENSE goto https://choosealicense.com"
+    if [ "$(command -v licensor)" ]; then
+        licensor --licenses | fzf --border=rounded --header="Choose A License:" | xargs -I {} licensor {} "Kunal Kumar" > LICENSE
+    else
+        echo "Create a LICENSE from https://choosealicense.com"
+    fi
     ;;
-    [nN]*) echo "Open-Source repository template not added." ;;
-    *) echo "Invalid Option!"
-    echo "Open-Source repository template not added." ;;
+    *) echo "Open-Source repository template not added." ;;
     esac
     cp ~/.gitmessage ./
     git config --local commit.template ".gitmessage"
     if [ "$(command -v gitignore)" ]; then
-        echo "Choose .gitignore Template:"
-        gitignore
+        printf "Do you want a .gitignore [y/N]: "
+        read -r gitignore_choice
+        case $gitignore_choice in
+            [yY]*)  echo "Choose .gitignore Template:"
+                    gitignore ;;
+            *) echo ".gitignore Not Created!" ;;
+        esac
     fi
     echo "All done!"
+}
+
+# Push current (or specified) branch to all remotes
+function gpr() {
+    if [ -z "$1" ]; then
+        BRANCH=$(git branch --show-current)
+    else
+        BRANCH=$1
+    fi
+    git remote | xargs -L1 -I R git push R "$BRANCH"
+
 }
 
 # Utility functions for zoxide.

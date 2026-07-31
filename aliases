@@ -45,6 +45,7 @@ alias gc="git commit"
 alias gcm="git commit -m"
 alias ga="git add ."
 alias gaf="git add"
+alias gpra="git remote | xargs -L1 -I R git push --all R"
 
 # Zoxide Aliases
 alias z=__zoxide_z

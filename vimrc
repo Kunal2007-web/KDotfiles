@@ -81,6 +81,7 @@ set splitbelow " Always split below"
 set backspace=indent,eol,start " Allow backspacing over items
 set confirm " Display confirmation dialog when closing an unsaved file
 set history=100 " Set command history limit
+set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 
 " Plugins
 " For Automatic Plugin Installation on First Start

@@ -170,7 +170,6 @@ keybinding:
     pasteCommits: 'v'
     tagCommit: 'T'
     checkoutCommit: '<space>'
-    resetCherryPick: '<c-R>'
     openLogMenu: '<c-l>'
     viewBisectOptions: 'b'
   stash:
